@@ -172,7 +172,7 @@ if (footerForm) {
         };
 
         try {
-            const response = await fetch('http://localhost:3000/api/leads', {
+            const response = await fetch('/api/leads', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
