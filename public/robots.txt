@@ -1,0 +1,17 @@
+# Standard Crawlers
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# AI & LLM Crawlers (Explicitly Allowed for Optimization)
+User-agent: GPTBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# Sitemap
+Sitemap: https://yulwater.com/sitemap.xml

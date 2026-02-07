@@ -4,10 +4,23 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import { body, validationResult } from 'express-validator';
 
+import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
+// Security Middleware
+app.use(helmet());
+
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // Limit each IP to 100 requests per windowMs
+    message: 'Too many requests from this IP, please try again later.'
+});
+app.use('/api/', limiter);
+
+// Standard Middleware
 app.use(cors());
 app.use(express.json());
 
@@ -45,7 +58,7 @@ app.post('/api/leads', [
         const newLead = new Lead({ name, company, email, country });
         await newLead.save();
 
-        console.log(`📩 New Lead: ${email} from ${company}`);
+        // console.log(`📩 New Lead: ${email} from ${company}`);
         res.status(201).json({ success: true, message: 'Your request has been received. We will be in touch shortly.' });
     } catch (error) {
         console.error('Submission Error:', error);
