@@ -154,6 +154,35 @@ if (globalPartnerBtn && footerSection) {
 // 2. Form Submission
 const footerForm = document.querySelector('.footer-form');
 
+// Toast Notification Logic (Global)
+window.showToast = function (message, type = 'success') {
+    let container = document.querySelector('.toast-container');
+    if (!container) {
+        container = document.createElement('div');
+        container.className = 'toast-container';
+        document.body.appendChild(container);
+    }
+
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.innerText = message;
+
+    container.appendChild(toast);
+
+    // Trigger animation
+    requestAnimationFrame(() => {
+        toast.classList.add('show');
+    });
+
+    // Remove after 3 seconds
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => {
+            toast.remove();
+        }, 400);
+    }, 3000);
+};
+
 if (footerForm) {
     footerForm.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -183,14 +212,14 @@ if (footerForm) {
             const result = await response.json();
 
             if (result.success) {
-                alert(result.message);
+                showToast(result.message);
                 footerForm.reset();
             } else {
-                alert('Error: ' + (result.errors ? result.errors.map(e => e.msg).join(', ') : result.message));
+                showToast('Error: ' + (result.errors ? result.errors.map(e => e.msg).join(', ') : result.message), 'error');
             }
         } catch (error) {
             console.error('Error submitting form:', error);
-            alert('Unable to connect to the server. Please try again later.');
+            showToast('Unable to connect to the server. Please try again later.', 'error');
         } finally {
             submitBtn.textContent = originalText;
             submitBtn.disabled = false;

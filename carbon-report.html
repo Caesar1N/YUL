@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/assets/yul-logo.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carbon Report - YUL</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            overflow: hidden;
+            /* Prevent scroll on this simple page */
+        }
+
+        .wip-container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .wip-headline {
+            font-family: var(--font-serif);
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            color: var(--color-white);
+        }
+
+        .wip-subheadline {
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin-bottom: 3rem;
+            color: var(--color-mist);
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .home-link {
+            color: var(--color-gold);
+            text-decoration: none;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            border-bottom: 1px solid transparent;
+            transition: all 0.3s;
+            padding-bottom: 5px;
+        }
+
+        .home-link:hover {
+            border-bottom-color: var(--color-gold);
+            opacity: 0.8;
+        }
+
+        /* Mobile Override */
+        @media (max-width: 768px) {
+            .wip-container {
+                padding: 1rem;
+            }
+
+            .wip-headline {
+                font-size: 2.2rem;
+                margin-bottom: 1rem;
+            }
+
+            .wip-subheadline {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+
+            .sun-glow {
+                width: 250px !important;
+                height: 250px !important;
+                top: 25% !important;
+                filter: blur(30px);
+            }
+
+            .home-link {
+                font-size: 0.8rem;
+                margin-top: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <section class="hero-section">
+        <!-- Reuse Background -->
+        <div class="video-bg-container">
+            <img src="/assets/hero-bg.png" alt="Bhutan Mist" class="hero-bg-media">
+        </div>
+        <div class="hero-overlay"></div>
+
+        <!-- Reuse Sun Glow (Slightly smaller here) -->
+        <div class="sun-glow" style="width: 300px; height: 300px; top: 30%;"></div>
+
+        <div class="wip-container">
+            <img src="/assets/yul-logo.svg" alt="YUL"
+                style="width: 120px; margin-bottom: 2rem; filter: drop-shadow(0 0 20px rgba(255,255,255,0.3));">
+
+            <h1 class="wip-headline">Transparency Takes Time.</h1>
+
+            <p class="wip-subheadline">
+                We are currently calculating the precise carbon-negative impact of our latest harvest.
+                <br><br>
+                The full Carbon Report for 2026 will be published here shortly.
+            </p>
+
+            <a href="/" class="home-link">← Return to Home</a>
+        </div>
+    </section>
+
+</body>
+
+</html>

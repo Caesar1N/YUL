@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/assets/yul-logo.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us - YUL</title>
+    <meta name="description"
+        content="Get in touch with YUL. Partner with us or inquire about our premium Himalayan spring water." />
+
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* Contact Specific Styles */
+        .contact-hero {
+            padding-top: 120px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .contact-container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 600px;
+            background: rgba(21, 38, 31, 0.6);
+            /* Semi-transparent forest */
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 4rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .contact-email {
+            font-size: 1.5rem;
+            color: var(--color-gold);
+            margin-bottom: 2rem;
+            display: block;
+            text-decoration: none;
+            font-family: var(--font-serif);
+            transition: opacity 0.3s;
+        }
+
+        .contact-email:hover {
+            opacity: 0.8;
+        }
+
+        .form-wrapper {
+            margin-top: 2rem;
+        }
+
+        /* Reuse footer form styles but ensure visibility */
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            padding: 1.25rem;
+            border: 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+            /* Slight fill */
+            color: white;
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .contact-form textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--color-gold);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .home-link {
+            margin-top: 2rem;
+            display: inline-block;
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+        }
+
+        .home-link:hover {
+            color: var(--color-white);
+        }
+
+        .contact-footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            padding: 2rem;
+            z-index: 2;
+            opacity: 0.6;
+            color: white;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 768px) {
+            .contact-hero {
+                padding-top: 80px;
+            }
+
+            .contact-container {
+                padding: 2rem 1.5rem;
+                width: 92%;
+                max-width: none;
+            }
+
+            .contact-email {
+                font-size: 1.1rem;
+                word-break: break-all;
+            }
+
+            .section-header {
+                font-size: 2rem !important;
+            }
+
+            .sun-glow {
+                width: 280px !important;
+                height: 280px !important;
+                top: 20% !important;
+            }
+
+            .intro-text {
+                font-size: 0.95rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .contact-footer {
+                position: relative;
+                bottom: auto;
+                margin-top: 3rem;
+                padding-bottom: 2rem;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <section class="contact-hero">
+        <!-- Reuse Background -->
+        <div class="video-bg-container">
+            <img src="/assets/hero-bg.png" alt="Bhutan Mist" class="hero-bg-media">
+        </div>
+        <div class="hero-overlay"></div>
+        <!-- Reuse Sun Glow -->
+        <div class="sun-glow" style="width: 500px; height: 500px; top: 30%;"></div>
+
+        <div class="contact-container">
+            <img src="/assets/yul-logo.svg" alt="YUL" style="width: 100px; margin-bottom: 2rem;">
+
+            <h1 class="section-header" style="color: var(--color-white); margin-bottom: 0.5rem;">Get in Touch</h1>
+            <p class="body-copy" style="color: rgba(255,255,255,0.8); margin-bottom: 2rem;">
+                For global partnerships, distribution inquiries, or simply to say hello.
+            </p>
+
+            <a href="#" onclick="showEmailOptions(event)" class="contact-email">Happy@Yulwater.com</a>
+
+            <div class="form-wrapper">
+                <form class="contact-form" id="contactPageForm">
+                    <input type="text" name="name" placeholder="Name" required>
+                    <input type="text" name="company" placeholder="Company / Distributor Name" required>
+                    <input type="email" name="email" placeholder="Email Address" required>
+                    <input type="text" name="country" placeholder="Country" required>
+                    <!-- Hidden input if needed for distinct tracking, but schema is strict, so we keep it standard -->
+
+                    <button type="submit" class="cta-button gold" style="width: 100%; margin-top: 1rem;">Send
+                        Message</button>
+                </form>
+                <div id="formMessage" style="margin-top: 1rem; color: var(--color-gold); display: none;"></div>
+            </div>
+
+            <a href="/" class="home-link">← Return Home</a>
+        </div>
+
+        <!-- Footer Simple -->
+        <footer class="contact-footer">
+            © 2026 YUL Beverages. Made in Bhutan.
+        </footer>
+    </section>
+
+    <!-- Email Choice Modal -->
+    <div id="emailModal" class="email-modal">
+        <div class="email-modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Contact via</h3>
+            <a href="#" onclick="openMail('default')">Default Mail App</a>
+            <a href="#" onclick="openMail('gmail')">Gmail</a>
+            <a href="#" onclick="openMail('outlook')">Outlook Web</a>
+            <a href="#" onclick="copyEmail()">Copy Email Address</a>
+        </div>
+    </div>
+
+    <style>
+        .email-modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .email-modal-content {
+            background: var(--color-forest);
+            border: 1px solid var(--color-gold-muted);
+            padding: 2rem;
+            border-radius: 4px;
+            width: 300px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .email-modal-content h3 {
+            color: var(--color-white);
+            font-family: var(--font-serif);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .email-modal-content a {
+            display: block;
+            padding: 10px;
+            margin: 5px 0;
+            color: var(--color-mist);
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .email-modal-content a:hover {
+            background: var(--color-gold-muted);
+            color: var(--color-forest);
+            border-color: var(--color-gold-muted);
+        }
+
+        .close-modal {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            cursor: pointer;
+        }
+
+        .close-modal:hover {
+            color: var(--color-gold);
+        }
+    </style>
+
+    <!-- Reuse main script logic (or add specific script here) -->
+    <script>
+        // Email Modal Logic
+        const modal = document.getElementById("emailModal");
+        const span = document.getElementsByClassName("close-modal")[0];
+        const email = "Happy@Yulwater.com";
+
+        function showEmailOptions(e) {
+            e.preventDefault();
+            modal.style.display = "flex";
+        }
+
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        function openMail(service) {
+            let url = "";
+            switch (service) {
+                case 'gmail':
+                    url = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}`;
+                    window.open(url, '_blank');
+                    break;
+                case 'outlook':
+                    url = `https://outlook.live.com/mail/0/deeplink/compose?to=${email}`;
+                    window.open(url, '_blank');
+                    break;
+                case 'default':
+                    window.location.href = `mailto:${email}`;
+                    break;
+            }
+            modal.style.display = "none";
+        }
+
+        // Toast Notification Logic
+        function showToast(message, type = 'success') {
+            let container = document.querySelector('.toast-container');
+            if (!container) {
+                container = document.createElement('div');
+                container.className = 'toast-container';
+                document.body.appendChild(container);
+            }
+
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerText = message;
+
+            container.appendChild(toast);
+
+            // Trigger animation
+            requestAnimationFrame(() => {
+                toast.classList.add('show');
+            });
+
+            // Remove after 3 seconds
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => {
+                    toast.remove();
+                }, 400);
+            }, 3000);
+        }
+
+        function copyEmail() {
+            navigator.clipboard.writeText(email).then(() => {
+                showToast("Email copied to clipboard!");
+                modal.style.display = "none";
+            });
+        }
+
+        // Simple script to handle form submission reusing the logic from main.js conceptually
+        document.getElementById('contactPageForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const msg = document.getElementById('formMessage');
+            const originalText = btn.innerText;
+
+            btn.innerText = 'Sending...';
+            btn.disabled = true;
+
+            const formData = {
+                name: e.target.name.value,
+                company: e.target.company.value,
+                email: e.target.email.value,
+                country: e.target.country.value
+            };
+
+            try {
+                const response = await fetch('/api/leads', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    msg.style.display = 'block';
+                    msg.style.color = '#B1D182'; // Light Green
+                    msg.innerText = 'Thank you. We will be in touch shortly.';
+                    e.target.reset();
+                } else {
+                    throw new Error(result.message || 'Submission failed');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                msg.style.display = 'block';
+                msg.style.color = '#D4AF37'; // Gold
+                msg.innerText = 'Something went wrong. Please try emailing us directly.';
+            } finally {
+                btn.innerText = originalText;
+                btn.disabled = false;
+            }
+        });
+    </script>
+
+</body>
+
+</html>
