@@ -87,7 +87,7 @@ features.forEach((feature, i) => {
             scrollTrigger: {
                 trigger: feature,
                 start: "top 90%", // Earlier trigger
-                toggleActions: "play none none reverse"
+                toggleActions: "play none none none" // Play once and stay visible
             }
         }
     );

@@ -372,36 +372,38 @@ h3 {
 }
 
 .product-display {
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+        "left1 image right1"
+        "left2 image right2";
     align-items: center;
-    margin-top: 8rem;
-    position: relative;
-    flex-wrap: wrap;
-    gap: 4rem;
+    margin-top: 6rem;
+    gap: 4rem 2rem;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .product-image-wrapper {
-    flex: 0 0 500px;
+    grid-area: image;
     text-align: center;
     z-index: 2;
-    margin: 0 2rem;
+    margin: 0;
+    align-self: center;
 }
 
 .product-carton {
     width: 100%;
-    max-height: none;
+    max-width: 150px;
     height: auto;
-    width: 450px;
-    /* Slightly smaller for balance */
     object-fit: contain;
-    filter: drop-shadow(0 40px 80px rgba(0, 0, 0, 0.2));
-    /* Softer shadow */
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.1));
 }
 
 .floating-carton {
     animation: float 8s ease-in-out infinite;
-    /* Slower float */
 }
 
 @keyframes float {
@@ -410,7 +412,7 @@ h3 {
     }
 
     50% {
-        transform: translateY(-20px) rotate(1deg);
+        transform: translateY(-10px) rotate(1deg);
     }
 
     100% {
@@ -419,52 +421,134 @@ h3 {
 }
 
 .feature-box {
-    flex: 0 0 300px;
-    margin: 0;
     opacity: 0;
     /* JS reveal */
-    text-align: left;
 }
 
-/* Specific alignment tweaks */
-.feature-left {
+/* Assign Grid Areas */
+.left-1 {
+    grid-area: left1;
     text-align: right;
 }
 
-.feature-right {
+.left-2 {
+    grid-area: left2;
+    text-align: right;
+}
+
+.right-1 {
+    grid-area: right1;
+    text-align: left;
+}
+
+.right-2 {
+    grid-area: right2;
     text-align: left;
 }
 
 .feature-box h3 {
     font-family: var(--font-serif);
     color: var(--color-forest);
-    margin-bottom: 0.75rem;
-    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
     font-weight: 400;
 }
 
 .feature-box p {
-    font-size: 1rem;
+    font-size: 0.95rem;
     color: #666;
-    line-height: 1.7;
+    line-height: 1.6;
     font-weight: 300;
 }
 
-/* Sustainability */
-.sustainability-section {
-    padding: 10rem 0;
-    text-align: center;
-    background-color: var(--color-mist);
+/* Product Embellishments */
+.product-container::before,
+.product-container::after {
+    content: "";
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    border: 1px solid var(--color-gold-muted);
+    opacity: 0.3;
+    pointer-events: none;
+    transition: all 0.5s ease;
 }
 
-.sustainability-grid {
+/* Top Left Corner */
+.product-container::before {
+    top: -20px;
+    left: 20px;
+    border-right: none;
+    border-bottom: none;
+}
+
+/* Bottom Right Corner */
+.product-container::after {
+    bottom: -20px;
+    right: 20px;
+    border-left: none;
+    border-top: none;
+}
+
+/* Background Watermark */
+.product-section::before {
+    content: "YUL";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-serif);
+    font-size: 25vw;
+    /* Huge responsive size */
+    color: var(--color-forest);
+    opacity: 0.03;
+    /* Barely visible */
+    z-index: 0;
+    pointer-events: none;
+    white-space: nowrap;
+    letter-spacing: -0.05em;
+}
+
+.product-display {
+    position: relative;
+    z-index: 1;
+    /* Ensure content is above watermark */
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    /* Forced 2x2 */
-    gap: 2rem;
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+        "left1 image right1"
+        "left2 image right2";
+    align-items: center;
+    margin-top: 6rem;
+    gap: 4rem 2rem;
     max-width: 1000px;
-    /* Constrain width for better reading */
-    margin: 6rem auto 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Mobile Adjustments for Embellishments */
+@media (max-width: 768px) {
+    .product-section::before {
+        font-size: 40vw;
+        /* Even larger on mobile to span width */
+        opacity: 0.02;
+    }
+
+    .product-container::before,
+    .product-container::after {
+        width: 60px;
+        height: 60px;
+        opacity: 0.2;
+    }
+
+    .product-container::before {
+        left: 0;
+    }
+
+    .product-container::after {
+        right: 0;
+    }
 }
 
 .sust-card {
@@ -804,27 +888,32 @@ h3 {
         padding: 6rem 0;
     }
 
+    .product-container {
+        padding: 0 30px;
+        /* Ensure space for corners */
+    }
+
     .product-display {
+        display: flex;
         flex-direction: column;
-        gap: 3rem;
-        margin-top: 4rem;
+        gap: 2.5rem;
+        /* Slightly more gap */
+        margin-top: 3rem;
     }
 
     .product-image-wrapper {
         order: -1;
         /* Image first */
         margin: 0;
-        flex: auto;
         width: 100%;
     }
 
     .product-carton {
-        width: 280px;
-        /* Much smaller for mobile */
+        width: 100%;
+        max-width: 140px;
     }
 
     .feature-box {
-        flex: auto;
         width: 100%;
         text-align: center !important;
         /* Force center align */
