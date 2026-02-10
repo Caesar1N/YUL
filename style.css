@@ -551,6 +551,23 @@ h3 {
     }
 }
 
+/* Sustainability */
+.sustainability-section {
+    padding: 10rem 0;
+    text-align: center;
+    background-color: var(--color-mist);
+}
+
+.sustainability-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    /* Forced 2x2 */
+    gap: 2rem;
+    max-width: 1000px;
+    /* Constrain width for better reading */
+    margin: 6rem auto 0;
+}
+
 .sust-card {
     background: rgba(43, 70, 60, 0.03);
     /* Subtle forest tint */
