@@ -1,6 +1,10 @@
 {
     "rewrites": [
         {
+            "source": "/deck",
+            "destination": "/yul-pitch-deck.html"
+        },
+        {
             "source": "/api/(.*)",
             "destination": "/api/index.js"
         }

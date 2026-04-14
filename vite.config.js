@@ -7,7 +7,8 @@ export default defineConfig({
             input: {
                 main: 'index.html',
                 contact: 'contact.html',
-                carbon: 'carbon-report.html'
+                carbon: 'carbon-report.html',
+                deck: 'yul-pitch-deck.html'
             }
         }
     },

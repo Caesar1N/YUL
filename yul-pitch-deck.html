@@ -1,0 +1,1690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YUL — Investor Deck</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --glacier: #B8C4C8;
+    --deep: #1A2228;
+    --slate: #2E3D45;
+    --mist: #E8EEEF;
+    --fog: #F4F7F8;
+    --copper: #B08A6E;
+    --copper-light: #C9A882;
+    --white: #FFFFFF;
+    --text-muted: #6B8089;
+    --rule: rgba(176,138,110,0.3);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--deep);
+    color: var(--white);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 3rem;
+    background: rgba(26,34,40,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid rgba(176,138,110,0.2);
+  }
+
+  .nav-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 0.25em;
+    color: var(--copper-light);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--glacier);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--copper-light); }
+
+  /* SLIDES */
+  .slide {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .slide-inner {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 6rem 3rem 4rem;
+  }
+
+  /* SLIDE NUMBERS */
+  .slide-num {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--copper);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .slide-num::after {
+    content: '';
+    display: block;
+    width: 2rem;
+    height: 0.5px;
+    background: var(--copper);
+  }
+
+  /* TYPOGRAPHY */
+  .display {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    line-height: 1.05;
+  }
+
+  .display-xl { font-size: clamp(3.5rem, 7vw, 7rem); }
+  .display-lg { font-size: clamp(2.5rem, 5vw, 4.5rem); }
+  .display-md { font-size: clamp(1.8rem, 3.5vw, 3rem); }
+
+  .eyebrow {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--copper);
+    margin-bottom: 1rem;
+    font-weight: 400;
+  }
+
+  .body-text {
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--glacier);
+    line-height: 1.8;
+    max-width: 520px;
+  }
+
+  .accent { color: var(--copper-light); }
+
+  /* HORIZONTAL RULE */
+  .rule {
+    width: 100%;
+    height: 0.5px;
+    background: var(--rule);
+    margin: 2rem 0;
+  }
+
+  /* ─── SLIDE 1: HERO ─── */
+  #s1 {
+    background: var(--deep);
+    position: relative;
+  }
+
+  #s1::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 70% at 70% 50%, rgba(176,138,110,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .hero-tagline {
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    color: var(--glacier);
+    margin-top: 2rem;
+    font-weight: 200;
+    font-style: italic;
+  }
+
+  .hero-img-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .carton-img {
+    width: 340px;
+    filter: drop-shadow(0 30px 60px rgba(0,0,0,0.6));
+    animation: floatUp 1.2s ease-out both;
+  }
+
+  @keyframes floatUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-ring {
+    position: absolute;
+    width: 360px;
+    height: 360px;
+    border-radius: 50%;
+    border: 0.5px solid rgba(176,138,110,0.15);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .hero-ring-2 {
+    width: 480px;
+    height: 480px;
+    border-color: rgba(176,138,110,0.07);
+  }
+
+  /* ─── SLIDE 2: CRISIS ─── */
+  #s2 { background: #111820; }
+
+  .crisis-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    margin-top: 3rem;
+    border: 0.5px solid var(--rule);
+  }
+
+  .crisis-cell {
+    background: #111820;
+    padding: 2.5rem 2rem;
+    position: relative;
+  }
+
+  .crisis-icon {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+
+  .crisis-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    margin-bottom: 0.75rem;
+    color: var(--mist);
+  }
+
+  .crisis-body {
+    font-size: 0.8rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  .crisis-num {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    color: rgba(176,138,110,0.1);
+    line-height: 1;
+  }
+
+  /* ─── SLIDE 3: SOLUTION ─── */
+  #s3 { background: var(--slate); }
+
+  #s3::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 40% 50% at 15% 50%, rgba(176,138,110,0.05) 0%, transparent 70%);
+  }
+
+  .solution-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .solution-img-side {
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+
+  .solution-img {
+    width: 220px;
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
+  }
+
+  .pillar-list {
+    list-style: none;
+    margin-top: 2rem;
+  }
+
+  .pillar-item {
+    display: grid;
+    grid-template-columns: 2.5rem 1fr;
+    gap: 1rem;
+    padding: 1.5rem 0;
+    border-bottom: 0.5px solid var(--rule);
+    align-items: start;
+  }
+
+  .pillar-item:first-child { border-top: 0.5px solid var(--rule); }
+
+  .pillar-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    color: var(--copper);
+    font-weight: 300;
+    line-height: 1.2;
+  }
+
+  .pillar-title {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--copper-light);
+    margin-bottom: 0.4rem;
+    font-weight: 400;
+  }
+
+  .pillar-body {
+    font-size: 0.82rem;
+    color: var(--glacier);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  /* ─── SLIDE 4: 4P ─── */
+  #s4 { background: var(--deep); }
+
+  .fourp-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .fourp-card {
+    border: 0.5px solid var(--rule);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .fourp-card::before {
+    content: attr(data-letter);
+    position: absolute;
+    bottom: -1rem;
+    right: 1rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 8rem;
+    font-weight: 300;
+    color: rgba(176,138,110,0.06);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .fourp-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--copper);
+    margin-bottom: 0.5rem;
+  }
+
+  .fourp-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    color: var(--mist);
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
+
+  .fourp-body {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* ─── SLIDE 5: MARKET ─── */
+  #s5 { background: #0F171D; }
+
+  .market-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+    margin-top: 2rem;
+  }
+
+  .market-circles {
+    position: relative;
+    width: 360px;
+    height: 360px;
+    margin: 0 auto;
+  }
+
+  .circle-wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mkt-circle {
+    position: absolute;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+  }
+
+  .mkt-c1 .mkt-label { margin-top: 1.25rem; }
+  .mkt-c2 .mkt-label { margin-top: 1rem; }
+  .mkt-c3 { justify-content: center; }
+
+  .mkt-c1 {
+    width: 340px; height: 340px;
+    border: 0.5px solid rgba(176,138,110,0.2);
+    background: rgba(176,138,110,0.04);
+  }
+
+  .mkt-c2 {
+    width: 240px; height: 240px;
+    border: 0.5px solid rgba(176,138,110,0.3);
+    background: rgba(176,138,110,0.06);
+  }
+
+  .mkt-c3 {
+    width: 140px; height: 140px;
+    background: rgba(176,138,110,0.15);
+    border: 0.5px solid rgba(176,138,110,0.5);
+  }
+
+  .mkt-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(0.65rem, 1.5vw, 1.1rem);
+    font-weight: 400;
+    color: var(--mist);
+    line-height: 1.2;
+  }
+
+  .mkt-val {
+    font-size: clamp(0.5rem, 1vw, 0.65rem);
+    letter-spacing: 0.1em;
+    color: var(--copper);
+    font-weight: 400;
+    text-transform: uppercase;
+    margin-top: 0.15rem;
+  }
+
+  .mkt-badge {
+    position: absolute;
+    background: rgba(176,138,110,0.1);
+    border: 0.5px solid rgba(176,138,110,0.3);
+    padding: 0.25rem 0.6rem;
+    font-size: clamp(0.5rem, 1vw, 0.65rem);
+    letter-spacing: 0.12em;
+    color: var(--copper-light);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .mkt-badge-1 { top: 0; right: -1rem; }
+  .mkt-badge-2 { top: 50%; right: -3.5rem; transform: translateY(-50%); }
+  .mkt-badge-3 { bottom: 0; right: -0.5rem; }
+
+  .market-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .stat-row {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.5rem;
+    align-items: center;
+    padding-bottom: 2rem;
+    border-bottom: 0.5px solid var(--rule);
+  }
+
+  .stat-row:last-child { border-bottom: none; }
+
+  .stat-tag {
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    color: var(--copper);
+    text-transform: uppercase;
+    font-weight: 500;
+    background: rgba(176,138,110,0.08);
+    border: 0.5px solid rgba(176,138,110,0.25);
+    padding: 0.3rem 0.6rem;
+    white-space: nowrap;
+  }
+
+  .stat-val {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: 0.2rem;
+  }
+
+  .stat-desc {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+
+  /* ─── SLIDE 6: UNIT ECONOMICS ─── */
+  #s6 { background: var(--slate); }
+
+  .econ-layout {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 5rem;
+    align-items: center;
+    margin-top: 2rem;
+  }
+
+  .econ-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .econ-table tr {
+    border-bottom: 0.5px solid var(--rule);
+  }
+
+  .econ-table td {
+    padding: 1.1rem 0;
+    font-size: 0.82rem;
+  }
+
+  .econ-table .td-label {
+    color: var(--text-muted);
+    font-weight: 300;
+    letter-spacing: 0.05em;
+  }
+
+  .econ-table .td-val {
+    text-align: right;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--mist);
+  }
+
+  .econ-table .highlight-row td { border-bottom-color: rgba(176,138,110,0.5); }
+
+  .econ-table .highlight-row .td-label {
+    color: var(--copper-light);
+  }
+
+  .econ-table .highlight-row .td-val {
+    color: var(--copper-light);
+    font-size: 1.5rem;
+  }
+
+  .margin-visual {
+    position: relative;
+  }
+
+  .margin-donut {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 2rem;
+  }
+
+  .margin-labels {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .margin-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.78rem;
+  }
+
+  .margin-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .margin-item-label { color: var(--text-muted); font-weight: 300; flex: 1; }
+  .margin-item-val { color: var(--mist); font-weight: 400; }
+
+  /* ─── SLIDE 7: PATH ─── */
+  #s7 { background: var(--deep); }
+
+  .path-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+    margin-top: 2rem;
+  }
+
+  .metric-row {
+    padding: 1.5rem 0;
+    border-bottom: 0.5px solid var(--rule);
+  }
+
+  .metric-row:first-child { border-top: 0.5px solid var(--rule); }
+
+  .metric-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--copper);
+    margin-bottom: 0.4rem;
+  }
+
+  .metric-val {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.1;
+  }
+
+  .metric-sub {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.2rem;
+    font-weight: 300;
+  }
+
+  .path-bar-section { margin-top: 1rem; }
+
+  .bar-track {
+    background: rgba(176,138,110,0.1);
+    height: 3px;
+    width: 100%;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+
+  .bar-fill {
+    position: absolute;
+    left: 0; top: 0; height: 100%;
+    background: linear-gradient(to right, var(--copper), var(--copper-light));
+    transition: width 1.5s ease;
+  }
+
+  .bar-label {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    margin-bottom: 0.4rem;
+    letter-spacing: 0.05em;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .breakeven-callout {
+    border: 0.5px solid var(--rule);
+    padding: 2rem;
+    margin-top: 1rem;
+    background: rgba(176,138,110,0.04);
+  }
+
+  .callout-val {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--copper-light);
+  }
+
+  .callout-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+  }
+
+  /* ─── SLIDE 8: WHY WIN ─── */
+  #s8 { background: #111820; }
+
+  .win-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin-top: 3rem;
+    border-top: 0.5px solid var(--rule);
+    border-left: 0.5px solid var(--rule);
+  }
+
+  .win-cell {
+    padding: 2.5rem 2rem;
+    border-bottom: 0.5px solid var(--rule);
+    border-right: 0.5px solid var(--rule);
+  }
+
+  .win-cell-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--mist);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .win-cell-body {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+    font-weight: 300;
+  }
+
+  .win-tag {
+    display: inline-block;
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--copper);
+    border: 0.5px solid rgba(176,138,110,0.3);
+    padding: 0.25rem 0.6rem;
+    margin-bottom: 1rem;
+  }
+
+  /* ─── SLIDE 9: ASK ─── */
+  #s9 { background: var(--deep); }
+
+  #s9::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 50% 60% at 50% 50%, rgba(176,138,110,0.05) 0%, transparent 70%);
+  }
+
+  .ask-center {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .ask-amount {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 8vw, 7rem);
+    font-weight: 300;
+    color: var(--copper-light);
+    line-height: 1;
+    margin: 1.5rem 0;
+  }
+
+  .ask-amount span {
+    font-size: 0.4em;
+    color: var(--text-muted);
+    vertical-align: super;
+  }
+
+  .ask-bars {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    margin-top: 3rem;
+    border: 0.5px solid var(--rule);
+  }
+
+  .ask-bar-item {
+    padding: 2rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ask-bar-item:first-child {
+    border-right: 0.5px solid var(--rule);
+  }
+
+  .ask-pct {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    font-weight: 300;
+    line-height: 1;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+
+  .ask-bar-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--copper);
+    margin-bottom: 0.75rem;
+  }
+
+  .ask-bar-body {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  .ask-fill-bar {
+    position: absolute;
+    bottom: 0; left: 0;
+    height: 3px;
+    background: var(--copper);
+  }
+
+  /* ─── SLIDE 10: TEAM ─── */
+  #s10 { background: var(--slate); }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .team-card {
+    border: 0.5px solid var(--rule);
+    padding: 1.75rem;
+    position: relative;
+  }
+
+  .team-initials {
+    width: 44px; height: 44px;
+    background: rgba(176,138,110,0.1);
+    border: 0.5px solid rgba(176,138,110,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    color: var(--copper-light);
+    margin-bottom: 1rem;
+  }
+
+  .team-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--mist);
+    margin-bottom: 0.25rem;
+  }
+
+  .team-role {
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--copper);
+    margin-bottom: 0.75rem;
+  }
+
+  .team-desc {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  .advisor-strip {
+    margin-top: 2rem;
+    border-top: 0.5px solid var(--rule);
+    padding-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .advisor-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--copper);
+    white-space: nowrap;
+  }
+
+  .advisor-names {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+
+  /* ─── FOOTER SLIDE ─── */
+  #s11 {
+    min-height: 60vh;
+    background: var(--deep);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .close-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(5rem, 12vw, 10rem);
+    font-weight: 300;
+    color: var(--copper-light);
+    letter-spacing: 0.3em;
+    margin-right: -0.3em;
+    animation: fadeIn 1s ease-out both;
+  }
+
+  .close-tagline {
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 1rem;
+    font-weight: 200;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.97); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  /* ─── UTILITY ─── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  /* ─── CUSTOM SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--deep); }
+  ::-webkit-scrollbar-thumb { background: var(--copper); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--copper-light); }
+  html { scrollbar-color: var(--copper) var(--deep); scrollbar-width: thin; }
+
+  /* ─── SELECTION ─── */
+  ::selection { background: rgba(176,138,110,0.4); color: var(--white); }
+
+  /* ─── GRAIN OVERLAY ─── */
+  .slide::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.03;
+    z-index: 50;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    background-size: 256px;
+  }
+
+  /* ─── SCROLL REVEAL SYSTEM ─── */
+  [data-r] {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  [data-r].is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  [data-r][data-d="1"] { transition-delay: 0.1s; }
+  [data-r][data-d="2"] { transition-delay: 0.2s; }
+  [data-r][data-d="3"] { transition-delay: 0.3s; }
+  [data-r][data-d="4"] { transition-delay: 0.4s; }
+  [data-r][data-d="5"] { transition-delay: 0.5s; }
+  [data-r][data-d="6"] { transition-delay: 0.6s; }
+  [data-r][data-d="7"] { transition-delay: 0.7s; }
+  [data-r][data-d="8"] { transition-delay: 0.8s; }
+
+  /* Scale-in variant */
+  [data-r="scale"] { transform: scale(0); }
+  [data-r="scale"].is-visible { transform: scale(1); }
+
+  /* Slide-left variant */
+  [data-r="left"] { transform: translateX(-40px); }
+  [data-r="left"].is-visible { transform: translateX(0); }
+
+  /* Slide-right variant */
+  [data-r="right"] { transform: translateX(40px); }
+  [data-r="right"].is-visible { transform: translateX(0); }
+
+  /* ─── NAV ENHANCEMENTS ─── */
+  nav { transition: padding 0.4s ease, background 0.4s ease, border-color 0.4s ease; }
+  nav.scrolled { padding: 0.8rem 3rem; background: rgba(26,34,40,0.97); border-bottom-color: rgba(176,138,110,0.35); }
+  .nav-links a { position: relative; padding-bottom: 2px; }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0;
+    width: 0; height: 1px;
+    background: var(--copper-light);
+    transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+  /* Hamburger */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    z-index: 200;
+    background: none; border: none; padding: 4px;
+  }
+  .hamburger span {
+    display: block;
+    width: 24px; height: 1px;
+    background: var(--glacier);
+    transition: transform 0.4s ease, opacity 0.3s ease;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+  .mobile-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(26,34,40,0.98);
+    backdrop-filter: blur(20px);
+    z-index: 150;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+  .mobile-overlay.open { opacity: 1; pointer-events: all; }
+  .mobile-overlay a {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    color: var(--glacier);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    transition: color 0.3s;
+  }
+  .mobile-overlay a:hover { color: var(--copper-light); }
+
+  /* ─── HERO RING ANIMATION ─── */
+  .hero-ring { animation: ringRotate 30s linear infinite; }
+  .hero-ring-2 { animation: ringRotate 45s linear infinite reverse; }
+  @keyframes ringRotate { to { transform: translate(-50%, -50%) rotate(360deg); } }
+
+  /* Hero carton float */
+  .carton-img, .solution-img-side svg {
+    animation: gentleFloat 6s ease-in-out infinite;
+  }
+  @keyframes gentleFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  /* ─── CARD & CELL HOVER EFFECTS ─── */
+  .crisis-cell, .fourp-card, .win-cell, .team-card {
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                background 0.4s ease,
+                box-shadow 0.4s ease;
+  }
+  .crisis-cell:hover { background: rgba(176,138,110,0.04); }
+  .fourp-card:hover {
+    transform: translateY(-4px);
+    background: rgba(176,138,110,0.04);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    border-color: rgba(176,138,110,0.4);
+  }
+  .fourp-card:hover::before { transform: scale(1.05); opacity: 0.08; }
+  .fourp-card::before { transition: transform 0.5s ease, opacity 0.5s ease; }
+
+  .win-cell:hover {
+    background: rgba(176,138,110,0.04);
+    transform: translateY(-3px);
+  }
+  .team-card:hover {
+    transform: translateY(-4px);
+    background: rgba(176,138,110,0.05);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    border-color: rgba(176,138,110,0.4);
+  }
+  .team-initials {
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+  }
+  .team-card:hover .team-initials {
+    border-color: var(--copper-light);
+    box-shadow: 0 0 20px rgba(176,138,110,0.15);
+  }
+
+  /* ─── STAT COUNTER ANIMATION ─── */
+  .stat-val, .metric-val, .ask-amount, .callout-val, .ask-pct {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ─── BAR ANIMATION ─── */
+  .bar-fill { width: 0 !important; transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.3s; }
+  .bar-fill.animated { width: var(--target-w) !important; }
+  .ask-fill-bar { width: 0 !important; transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.3s; }
+  .ask-fill-bar.animated { width: var(--target-w) !important; }
+
+  /* ─── DONUT DRAW ─── */
+  .donut-draw { transition: stroke-dashoffset 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.3s; }
+
+  /* ─── BREAKEVEN CALLOUT GLOW ─── */
+  .breakeven-callout {
+    transition: border-color 0.5s ease, box-shadow 0.5s ease;
+  }
+  .breakeven-callout:hover {
+    border-color: rgba(176,138,110,0.5);
+    box-shadow: 0 0 30px rgba(176,138,110,0.08);
+  }
+
+  /* ─── CLOSE LOGO LETTER SPACING ─── */
+  .close-logo {
+    letter-spacing: -0.1em;
+    opacity: 0;
+    transition: letter-spacing 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.8s ease;
+  }
+  .close-logo.is-visible {
+    letter-spacing: 0.3em;
+    opacity: 1;
+  }
+
+  /* ─── STAT-ROW HOVER ─── */
+  .stat-row { transition: background 0.3s ease; border-radius: 2px; padding: 1.5rem 1rem; margin: 0 -1rem; }
+  .stat-row:hover { background: rgba(176,138,110,0.04); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    nav.scrolled { padding: 0.75rem 1.5rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .slide-inner { padding: 5rem 1.5rem 3rem; }
+    .hero-layout, .solution-layout, .two-col,
+    .market-layout, .econ-layout, .path-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+    .crisis-grid, .win-grid { grid-template-columns: 1fr; }
+    .team-grid { grid-template-columns: 1fr; }
+    .fourp-grid { grid-template-columns: 1fr; }
+    .ask-bars { grid-template-columns: 1fr; }
+    .ask-bar-item:first-child { border-right: none; border-bottom: 0.5px solid var(--rule); }
+    .market-circles { width: 280px; height: 280px; }
+    .mkt-c1 { width: 260px; height: 260px; }
+    .mkt-c2 { width: 180px; height: 180px; }
+    .mkt-c3 { width: 110px; height: 110px; }
+    .mkt-badge { display: none; }
+    .mkt-label { font-size: 0.75rem; }
+    .mkt-val { font-size: 0.55rem; }
+    .carton-img { width: 260px; }
+    .hero-img-block { order: -1; }
+    .solution-img-side { order: -1; }
+    .advisor-strip { flex-direction: column; align-items: flex-start; }
+    .display-xl { font-size: clamp(2.8rem, 10vw, 5rem); }
+    .ask-amount { font-size: clamp(2.5rem, 10vw, 5rem); }
+  }
+
+  @media (max-width: 480px) {
+    .team-grid { grid-template-columns: 1fr; }
+    .slide-inner { padding: 4.5rem 1.2rem 2.5rem; }
+    .crisis-cell, .fourp-card, .win-cell, .team-card { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">YUL</div>
+  <ul class="nav-links">
+    <li><a href="#s1">Vision</a></li>
+    <li><a href="#s2">Problem</a></li>
+    <li><a href="#s3">Solution</a></li>
+    <li><a href="#s5">Market</a></li>
+    <li><a href="#s6">Economics</a></li>
+    <li><a href="#s9">The Ask</a></li>
+    <li><a href="#s10">Team</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-overlay" id="mobileNav">
+  <a href="#s1" class="mob-link">Vision</a>
+  <a href="#s2" class="mob-link">Problem</a>
+  <a href="#s3" class="mob-link">Solution</a>
+  <a href="#s5" class="mob-link">Market</a>
+  <a href="#s6" class="mob-link">Economics</a>
+  <a href="#s9" class="mob-link">The Ask</a>
+  <a href="#s10" class="mob-link">Team</a>
+</div>
+
+<!-- ─── SLIDE 1: HERO ─── -->
+<section class="slide" id="s1">
+  <div class="slide-inner">
+    <div class="hero-layout">
+      <div>
+        <p class="eyebrow" data-r data-d="1">Investor Presentation · 2026</p>
+        <h1 class="display display-xl" data-r data-d="2">YUL</h1>
+        <div class="rule" style="width:4rem; margin: 1.25rem 0;" data-r data-d="3"></div>
+        <h2 class="display display-md" style="color: var(--glacier); font-style: italic; margin-bottom: 1.5rem;" data-r data-d="4">Your Ultimate Life</h2>
+        <p class="body-text" data-r data-d="5">Premium lifestyle hydration sourced from the Royal Kingdom of Bhutan — the world's only carbon-negative country — delivered in a sustainable paper carton.</p>
+        <p class="hero-tagline" data-r data-d="6">Pure from the source. Kind to the land.</p>
+      </div>
+      <div class="hero-img-block" data-r data-d="3">
+        <div class="hero-ring"></div>
+        <div class="hero-ring hero-ring-2"></div>
+        <img class="carton-img" src="/assets/yul-carton-transparent.png" alt="YUL Premium Bhutanese Spring Water Carton">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SLIDE 2: CRISIS ─── -->
+<section class="slide" id="s2">
+  <div class="slide-inner">
+    <p class="slide-num" data-r>01</p>
+    <h2 class="display display-lg" data-r data-d="1">The Tripartite<br><em>Crisis</em></h2>
+    <p class="body-text" style="margin-top: 1rem;" data-r data-d="2">The beverage industry is at a breaking point. Three converging forces demand a new paradigm.</p>
+
+    <div class="crisis-grid">
+      <div class="crisis-cell" data-r data-d="2">
+        <span class="crisis-num">I</span>
+        <div class="crisis-title">The Plastic Problem</div>
+        <p class="crisis-body">Single-use PET bottles are an ecological liability. Recycling alone is no longer a sufficient answer for a world demanding genuine circularity.</p>
+      </div>
+      <div class="crisis-cell" data-r data-d="4">
+        <span class="crisis-num">II</span>
+        <div class="crisis-title">The Trust Deficit</div>
+        <p class="crisis-body">Discerning consumers now demand transparent provenance and bio-active quality — precisely what legacy brands with opaque supply chains struggle to provide.</p>
+      </div>
+      <div class="crisis-cell" data-r data-d="6">
+        <span class="crisis-num">III</span>
+        <div class="crisis-title">The Resource Paradox</div>
+        <p class="crisis-body">High-quality water is growing scarce, yet the industry persists with a "take-make-waste" logistics model fundamentally unfit for the 21st century.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SLIDE 3: SOLUTION ─── -->
+<section class="slide" id="s3">
+  <div class="slide-inner">
+    <p class="slide-num" data-r>02</p>
+    <div class="solution-layout">
+      <div class="solution-img-side" data-r="left">
+        <img class="solution-img" src="/assets/yul-carton-transparent.png" alt="YUL Premium Bhutanese Spring Water" style="width: 300px; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));">
+      </div>
+      <div>
+        <h2 class="display display-lg" data-r>The YUL<br><em>Solution</em></h2>
+        <p class="body-text" style="margin-top: 1rem;" data-r data-d="1">A holistic approach to premium hydration that refuses to compromise between health, taste, and planetary responsibility.</p>
+        <ul class="pillar-list">
+          <li class="pillar-item" data-r="right" data-d="2">
+            <div class="pillar-num">01</div>
+            <div>
+              <div class="pillar-title">Award-Winning Provenance</div>
+              <p class="pillar-body">Sourced from the same prestigious Himalayan spring as international award-winner Veen — guaranteeing a mineral-rich, superior taste profile with traceable origin.</p>
+            </div>
+          </li>
+          <li class="pillar-item" data-r="right" data-d="4">
+            <div class="pillar-num">02</div>
+            <div>
+              <div class="pillar-title">Plant-Based Innovation</div>
+              <p class="pillar-body">80% FSC-approved paper gable-top carton delivers a carbon-conscious premium drinking experience previously unseen in this segment.</p>
+            </div>
+          </li>
+          <li class="pillar-item" data-r="right" data-d="6">
+            <div class="pillar-num">03</div>
+            <div>
+              <div class="pillar-title">Bhutanese Heritage</div>
+              <p class="pillar-body">The world's first and only carbon-negative country. Sourcing here aligns YUL with peak ecological purity — an unimpeachable brand credential.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SLIDE 4: 4P ─── -->
+<section class="slide" id="s4">
+  <div class="slide-inner">
+    <p class="slide-num" data-r>03</p>
+    <h2 class="display display-lg" data-r data-d="1">Strategic<br><em>Positioning</em></h2>
+    <div class="fourp-grid">
+      <div class="fourp-card" data-letter="P" data-r data-d="2">
+        <p class="fourp-label">Product</p>
+        <div class="fourp-title">Live Water</div>
+        <p class="fourp-body">Lifestyle-driven, nourishing mineral spring water in a premium paper gable-top carton. A product that speaks to wellness, luxury, and conscious consumption simultaneously.</p>
+      </div>
+      <div class="fourp-card" data-letter="P" data-r data-d="3">
+        <p class="fourp-label">Price</p>
+        <div class="fourp-title">₹35 Ex-Factory</div>
+        <p class="fourp-body">Strategically undercuts the ₹75–200 premium category while maintaining a 34% gross margin. Removes price friction for B2B adoption without sacrificing brand equity.</p>
+      </div>
+      <div class="fourp-card" data-letter="P" data-r data-d="4">
+        <p class="fourp-label">Place</p>
+        <div class="fourp-title">Premium HoReCa</div>
+        <p class="fourp-body">Focused dominance in B2B, B2G, and premium HORECA — 5-star hotels and fine dining. Channels where provenance storytelling commands a premium and drives margin.</p>
+      </div>
+      <div class="fourp-card" data-letter="P" data-r data-d="5">
+        <p class="fourp-label">Promotion</p>
+        <div class="fourp-title">Narrative-Led</div>
+        <p class="fourp-body">Wellness, "pristine luxury," and sustainability-first partnerships. Marketing that does not sell water — it sells a worldview and a standard of living.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SLIDE 5: MARKET ─── -->
+<section class="slide" id="s5">
+  <div class="slide-inner">
+    <p class="slide-num" data-r>04</p>
+    <h2 class="display display-lg" data-r data-d="1">Market<br><em>Opportunity</em></h2>
+    <div class="market-layout">
+      <div class="market-circles" data-r="scale" data-d="2">
+        <div class="circle-wrap">
+          <div class="mkt-circle mkt-c1">
+            <span class="mkt-label" style="opacity:0.4;">TAM</span>
+          </div>
+          <div class="mkt-circle mkt-c2">
+            <span class="mkt-label" style="opacity:0.6;">SAM</span>
+          </div>
+          <div class="mkt-circle mkt-c3">
+            <span class="mkt-label">SOM</span>
+          </div>
+          <div class="mkt-badge mkt-badge-1" style="top: 10px; right: -2rem;">Total Market</div>
+          <div class="mkt-badge mkt-badge-2" style="top: 35%; right: -4rem;">Premium HoReCa</div>
+          <div class="mkt-badge mkt-badge-3" style="bottom: 10px; right: -2rem;">Our Focus</div>
+        </div>
+      </div>
+      <div class="market-stats">
+        <div class="stat-row" data-r data-d="3">
+          <span class="stat-tag">TAM</span>
+          <div>
+            <div class="stat-val">$1.02B</div>
+            <div class="stat-desc">Total bottled water market · 8.70% CAGR</div>
+          </div>
+        </div>
+        <div class="stat-row">
+          <span class="stat-tag">SAM</span>
+          <div>
+            <div class="stat-val">$326.6M</div>
+            <div class="stat-desc">Premium &amp; sustainable HoReCa / B2G · 32% share</div>
+          </div>
+        </div>
+        <div class="stat-row">
+          <span class="stat-tag">SOM</span>
+          <div>
+            <div class="stat-val" style="color: var(--copper-light);">$3.2M</div>
+            <div class="stat-desc">1% initial penetration target · Year 1 goal</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SLIDE 6: UNIT ECONOMICS ─── -->
+<section class="slide" id="s6">
+  <div class="slide-inner">
+    <p class="slide-num" data-r>05</p>
+    <h2 class="display display-lg" data-r data-d="1">Unit<br><em>Economics</em></h2>
+    <div class="econ-layout">
+      <div>
+        <p class="body-text" style="margin-bottom: 2rem;">A high-margin model built for scalability and distributor incentive — designed to reward the channel while maintaining brand premium.</p>
+        <table class="econ-table">
+          <tr>
+            <td class="td-label">Selling Price (Ex-Factory)</td>
+            <td class="td-val">₹33.00</td>
+          </tr>
+          <tr>
+            <td class="td-label">Distributor / B2B Price</td>
+            <td class="td-val">₹35.00</td>
+          </tr>
+          <tr>
+            <td class="td-label">Cost of Goods Sold</td>
+            <td class="td-val">₹21.80</td>
+          </tr>
+          <tr class="highlight-row">
+            <td class="td-label">Contribution Margin</td>
+            <td class="td-val">₹11.20</td>
+          </tr>
+          <tr>
+            <td class="td-label">Annual Overhead (per unit)</td>
+            <td class="td-val">₹8.85</td>
+          </tr>
+        </table>
+      </div>
+      <div class="margin-visual">
+        <svg viewBox="0 0 200 200" width="180" style="display:block; margin: 0 auto 2rem;">
+          <circle cx="100" cy="100" r="80" fill="none" stroke="rgba(176,138,110,0.1)" stroke-width="24"/>
+          <circle cx="100" cy="100" r="80" fill="none" stroke="#B08A6E" stroke-width="24"
+            stroke-dasharray="170 332" stroke-dashoffset="84"
+            stroke-linecap="round"/>
+          <circle cx="100" cy="100" r="80" fill="none" stroke="rgba(176,138,110,0.3)" stroke-width="24"
+            stroke-dasharray="332 332" stroke-dashoffset="-86"
+            stroke-linecap="round"/>
+          <text x="100" y="95" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="28" font-weight="300" fill="#B08A6E">34%</text>
+          <text x="100" y="115" text-anchor="middle" font-family="Jost, sans-serif" font-size="8" fill="#B8C4C8" letter-spacing="2">GROSS MARGIN</text>
+        </svg>
+        <div class="margin-labels">
+          <div class="margin-item">
+            <div class="margin-dot" style="background: var(--copper);"></div>
+            <span class="margin-item-label">Contribution</span>
+            <span class="margin-item-val">₹11.20</span>
+          </div>
+          <div class="margin-item">
+            <div class="margin-dot" style="background: rgba(176,138,110,0.3);"></div>
+            <span class="margin-item-label">COGS</span>
+            <span class="margin-item-val">₹21.80</span>
+          </div>
+          <div class="margin-item">
+            <div class="margin-dot" style="background: rgba(176,138,110,0.1);"></div>
+            <span class="margin-item-label">Overhead</span>
+            <span class="margin-item-val">₹8.85</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SLIDE 7: PATH TO PROFIT ─── -->
+<section class="slide" id="s7">
+  <div class="slide-inner">
+    <p class="slide-num" data-r>06</p>
+    <h2 class="display display-lg" data-r data-d="1">Path to<br><em>Profitability</em></h2>
+    <div class="path-layout">
+      <div data-r data-d="2">
+        <div class="metric-row">
+          <div class="metric-label">Monthly Fixed Cost</div>
+          <div class="metric-val">₹17.7L</div>
+          <div class="metric-sub">Lean, scalable operations</div>
+        </div>
+        <div class="metric-row">
+          <div class="metric-label">Annual Fixed OPEX</div>
+          <div class="metric-val">~₹2.12 Cr</div>
+          <div class="metric-sub">Full-year operational base</div>
+        </div>
+        <div class="metric-row">
+          <div class="metric-label">Break-even Volume</div>
+          <div class="metric-val">1.9M units</div>
+          <div class="metric-sub">Annual units required</div>
+        </div>
+        <div class="metric-row">
+          <div class="metric-label">Target Monthly Velocity</div>
+          <div class="metric-val">~158K</div>
+          <div class="metric-sub">Units per month for self-sufficiency</div>
+        </div>
+      </div>
+      <div data-r data-d="4">
+        <div class="breakeven-callout">
+          <div style="font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--copper); margin-bottom: 1rem;">Break-even Milestone</div>
+          <div class="callout-val">1.9M</div>
+          <div class="callout-label">Units annually to achieve operational self-sufficiency</div>
+        </div>
+        <div class="path-bar-section" style="margin-top: 2rem;">
+          <div style="margin-bottom: 1.5rem;">
+            <div class="bar-label"><span>Monthly target (units)</span><span>158K</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width: 63%;"></div></div>
+          </div>
+          <div style="margin-bottom: 1.5rem;">
+            <div class="bar-label"><span>Gross margin</span><span>34%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width: 34%;"></div></div>
+          </div>
+          <div>
+            <div class="bar-label"><span>SOM penetration target</span><span>1%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width: 12%;"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SLIDE 8: WHY WIN ─── -->
+<section class="slide" id="s8">
+  <div class="slide-inner">
+    <p class="slide-num" data-r>07</p>
+    <h2 class="display display-lg" data-r data-d="1">Why<br><em>We Win</em></h2>
+
+    <div class="win-grid">
+      <div class="win-cell" data-r data-d="2">
+        <div class="win-tag">Origin</div>
+        <div class="win-cell-title">Superior Heritage</div>
+        <p class="win-cell-body">Leveraging a source already vetted and lauded by global connoisseurs. The Bhutanese spring's credentials are ours — years of international validation, zero cost to acquire.</p>
+      </div>
+      <div class="win-cell" data-r data-d="4">
+        <div class="win-tag">Pricing</div>
+        <div class="win-cell-title">Disruptive Economics</div>
+        <p class="win-cell-body">Undercutting the ₹75–200 traditional premium range while protecting a 34% gross margin. An offer that accelerates adoption without conceding brand prestige.</p>
+      </div>
+      <div class="win-cell" data-r data-d="6">
+        <div class="win-tag">Timing</div>
+        <div class="win-cell-title">First-Mover Advantage</div>
+        <p class="win-cell-body">Dominating the "paper carton premium water" space before legacy players can pivot their infrastructure. The category winner is defined in the first 24 months.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SLIDE 9: THE ASK ─── -->
+<section class="slide" id="s9">
+  <div class="slide-inner">
+    <p class="slide-num" data-r>08</p>
+    <div class="ask-center">
+      <p class="eyebrow" data-r data-d="1">Seed Round</p>
+      <h2 class="display display-md" data-r data-d="2">Seeking</h2>
+      <div class="ask-amount" data-r data-d="3"><span>₹</span>9.34 Cr</div>
+      <p style="font-size: 0.75rem; letter-spacing: 0.15em; color: var(--text-muted); text-transform: uppercase;">US $1.01 Million</p>
+      <p class="body-text" style="margin: 1.5rem auto; text-align: center; max-width: 480px;">To operationalize production in Bhutan and establish a dominant position in India's premium HORECA market within 12 months.</p>
+      <div class="ask-bars">
+        <div class="ask-bar-item">
+          <div class="ask-bar-fill" style="width: 49.23%;"></div>
+          <div class="ask-pct">49.23%</div>
+          <div class="ask-bar-label">Capital Expenditure</div>
+          <p class="ask-bar-body">Infrastructure and production setup in Bhutan — essential given the absence of local contract manufacturing for this specification.</p>
+        </div>
+        <div class="ask-bar-item">
+          <div class="ask-bar-fill" style="width: 50.77%;"></div>
+          <div class="ask-pct">50.77%</div>
+          <div class="ask-bar-label">Operating Expenditure</div>
+          <p class="ask-bar-body">12-month operational runway covering marketing, supply chain logistics, and team to ensure a fully-funded go-to-market.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SLIDE 10: TEAM ─── -->
+<section class="slide" id="s10">
+  <div class="slide-inner">
+    <p class="slide-num" data-r>09</p>
+    <h2 class="display display-lg" data-r data-d="1">The<br><em>Leadership</em></h2>
+    <p class="body-text" style="margin: 1rem 0 0;" data-r data-d="2">Veterans in manufacturing, supply chain, and enterprise business development.</p>
+
+    <div class="team-grid">
+      <div class="team-card" data-r data-d="2">
+        <div class="team-initials">SV</div>
+        <div class="team-name">Swapnil Verma</div>
+        <div class="team-role">Co-Founder & CEO</div>
+        <p class="team-desc">Manufacturing &amp; Market Development. The operational architect behind YUL's sourcing and go-to-market strategy.</p>
+      </div>
+      <div class="team-card" data-r data-d="3">
+        <div class="team-initials">BV</div>
+        <div class="team-name">Bheem Vashisht</div>
+        <div class="team-role">Co-Founder & COO</div>
+        <p class="team-desc">Tech-driven operations lead, building the logistics and systems infrastructure for scale.</p>
+      </div>
+      <div class="team-card" data-r data-d="4">
+        <div class="team-initials">MS</div>
+        <div class="team-name">Mahim Saraf</div>
+        <div class="team-role">Co-Founder & Partner</div>
+        <p class="team-desc">Strategic and commercial partnerships, ensuring alignment across key stakeholders and distribution networks.</p>
+      </div>
+      <div class="team-card" data-r data-d="5">
+        <div class="team-initials">SV</div>
+        <div class="team-name">Sanjay Verma</div>
+        <div class="team-role">B2G Channel Head</div>
+        <p class="team-desc">27+ years of experience navigating government and institutional procurement channels.</p>
+      </div>
+      <div class="team-card" data-r data-d="6">
+        <div class="team-initials">JS</div>
+        <div class="team-name">Japjit Sethi</div>
+        <div class="team-role">Head of Business Development</div>
+        <p class="team-desc">23+ years building enterprise relationships across premium hospitality and HORECA verticals.</p>
+      </div>
+      <div class="team-card" data-r data-d="7" style="background: rgba(176,138,110,0.04);">
+        <div style="font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--copper); margin-bottom: 1rem;">Strategic Support</div>
+        <p class="team-desc" style="margin-bottom: 1rem;">Expert consultants from <strong style="color: var(--mist); font-weight: 400;">IIM Ahmedabad</strong> and <strong style="color: var(--mist); font-weight: 400;">Chitkara University</strong> advising on strategy, finance, and scaling operations.</p>
+        <div style="height: 0.5px; background: var(--rule); margin-top: 1rem;"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CLOSE ─── -->
+<section class="slide" id="s11" style="flex-direction: column; gap: 0;">
+  <div style="text-align: center; position: relative; z-index: 1;">
+    <div class="close-logo">YUL</div>
+    <p class="close-tagline" data-r data-d="4">Pure from the source. Kind to the land.</p>
+    <div class="rule" style="width: 3rem; margin: 2rem auto;" data-r data-d="5"></div>
+    <p data-r data-d="6" style="font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted);">yulwater.com &nbsp;·&nbsp; Confidential — 2026</p>
+  </div>
+</section>
+
+<script>
+(function() {
+  'use strict';
+
+  // ── Scroll Reveal Observer ──
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('is-visible');
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('[data-r]').forEach(el => revealObs.observe(el));
+
+  // ── Close Logo Observer ──
+  const logoObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('is-visible');
+    });
+  }, { threshold: 0.5 });
+  const closeLogo = document.querySelector('.close-logo');
+  if (closeLogo) logoObs.observe(closeLogo);
+
+  // ── Bar Fill Animation ──
+  document.querySelectorAll('.bar-fill').forEach(b => {
+    const w = b.style.width;
+    b.style.setProperty('--target-w', w);
+    b.style.width = '0';
+  });
+  document.querySelectorAll('.ask-fill-bar').forEach(b => {
+    const w = b.style.width;
+    b.style.setProperty('--target-w', w);
+    b.style.width = '0';
+  });
+
+  const barObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.bar-fill, .ask-fill-bar').forEach(b => {
+          b.classList.add('animated');
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('.slide').forEach(s => barObs.observe(s));
+
+  // ── Nav Scroll State ──
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 80) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  }, { passive: true });
+
+  // ── Nav Scroll Spy ──
+  const sections = document.querySelectorAll('.slide[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const spyObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(a => {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { threshold: 0.35 });
+  sections.forEach(s => spyObs.observe(s));
+
+  // ── Hamburger Menu ──
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobileNav');
+  if (hamburger && mobileNav) {
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+      document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+    });
+    mobileNav.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileNav.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+  }
+
+  // ── Smooth anchor scrolls ──
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>
