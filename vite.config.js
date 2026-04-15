@@ -8,7 +8,8 @@ export default defineConfig({
                 main: 'index.html',
                 contact: 'contact.html',
                 carbon: 'carbon-report.html',
-                deck: 'yul-pitch-deck.html'
+                deck: 'yul-pitch-deck.html',
+                admin: 'admin.html'
             }
         }
     },
