@@ -100,6 +100,24 @@ app.post('/api/deck-analytics', async (req, res) => {
     }
 });
 
+app.get('/api/admin/metrics', async (req, res) => {
+    try {
+        const { key } = req.query;
+        const secret = process.env.ADMIN_SECRET || 'yul2026'; // Default fallback
+        if (key !== secret) {
+            return res.status(401).json({ success: false, message: 'Unauthorized' });
+        }
+        
+        const sessions = await DeckSession.find().sort({ visitStart: -1 }).limit(500);
+        const leads = await Lead.find().sort({ createdAt: -1 }).limit(100);
+        
+        res.status(200).json({ success: true, sessions, leads });
+    } catch (error) {
+        console.error('Metrics Fetch Error:', error);
+        res.status(500).json({ success: false, message: 'Server error' });
+    }
+});
+
 // Start Server (Only if not running on Vercel)
 if (process.env.NODE_ENV !== 'production') {
     app.listen(PORT, () => {

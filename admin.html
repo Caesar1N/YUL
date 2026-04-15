@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YUL Analytics Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --glacier: #D0D9DC;
+    --deep: #1A2228;
+    --slate: #2E3D45;
+    --mist: #F0F4F5;
+    --copper: #C09A7E;
+    --copper-light: #D4B494;
+    --text-muted: #8FA3AB;
+    --rule: rgba(176,138,110,0.3);
+  }
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--deep);
+    color: var(--mist);
+    margin: 0;
+    padding: 2rem;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    color: var(--copper-light);
+    margin-bottom: 2rem;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .card {
+    background: var(--slate);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 1.5rem;
+  }
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+  }
+  .ref-tag {
+    color: var(--copper);
+    font-weight: 500;
+    font-size: 1.1rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .meta {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+  .stat {
+    font-size: 0.9rem;
+  }
+  .stat strong { color: var(--glacier); font-weight: 400; }
+  
+  .timeline {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .timeline-bar-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .timeline-label {
+    width: 60px;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-align: right;
+  }
+  .timeline-bar-container {
+    flex-grow: 1;
+    background: rgba(0,0,0,0.2);
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .timeline-bar {
+    height: 100%;
+    background: var(--copper);
+    border-radius: 4px;
+  }
+  .timeline-val {
+    width: 40px;
+    font-size: 0.75rem;
+    color: var(--glacier);
+  }
+  .alert {
+    padding: 1rem;
+    background: rgba(255, 100, 100, 0.1);
+    border: 1px solid rgba(255,100,100,0.3);
+    color: #ffb3b3;
+    border-radius: 4px;
+    margin-bottom: 2rem;
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+<h1>YUL Engagement Analytics</h1>
+<div id="error" class="alert">Invalid Key or Server Error</div>
+<div id="loading">Authenticating and loading data...</div>
+
+<div class="grid" id="dashboard"></div>
+
+<script>
+  async function loadData() {
+    const params = new URLSearchParams(window.location.search);
+    const key = params.get('key');
+    
+    if (!key) {
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('error').innerText = "Authentication failed.";
+      document.getElementById('error').style.display = 'block';
+      return;
+    }
+
+    try {
+      const res = await fetch(`/api/admin/metrics?key=${key}`);
+      const data = await res.json();
+
+      document.getElementById('loading').style.display = 'none';
+
+      if (!data.success) {
+        document.getElementById('error').innerText = "Authentication failed or server error.";
+        document.getElementById('error').style.display = 'block';
+        return;
+      }
+
+      renderDashboard(data.sessions);
+    } catch (e) {
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('error').innerText = "Network error connecting to DB.";
+      document.getElementById('error').style.display = 'block';
+    }
+  }
+
+  function formatTime(ms) {
+    if (!ms || ms < 0) return "0s";
+    if (ms < 60000) return Math.round(ms/1000) + "s";
+    return Math.floor(ms/60000) + "m " + Math.round((ms%60000)/1000) + "s";
+  }
+
+  function renderDashboard(sessions) {
+    const dash = document.getElementById('dashboard');
+    dash.innerHTML = '';
+    
+    if (!sessions || sessions.length === 0) {
+      dash.innerHTML = '<p class="meta">No sessions recorded yet.</p>';
+      return;
+    }
+
+    sessions.forEach(s => {
+      const card = document.createElement('div');
+      card.className = 'card';
+
+      const date = new Date(s.visitStart || s.createdAt).toLocaleString();
+      let referrer = s.referrer || "direct";
+      
+      let html = `
+        <div class="card-header">
+          <div>
+            <div class="ref-tag">${referrer}</div>
+            <div class="meta">${date} &bull; ${s.userAgent ? s.userAgent.substring(0,60)+'...' : 'Unknown device'}</div>
+          </div>
+          <div style="text-align: right;">
+            <div class="stat">Duration: <strong>${formatTime(s.totalDuration)}</strong></div>
+            <div class="stat">Max Slide Reached: <strong>Slide ${s.maxScrollDepth}</strong></div>
+          </div>
+        </div>
+      `;
+
+      if (s.slideDwellTimes && Object.keys(s.slideDwellTimes).length > 0) {
+        html += `<div class="meta" style="margin-bottom: 0.5rem; text-transform:uppercase; letter-spacing:0.1em; font-size:0.7rem;">Time Spent per Slide</div>`;
+        html += `<div class="timeline">`;
+        
+        let maxTime = Math.max(...Object.values(s.slideDwellTimes));
+        if (maxTime < 1000) maxTime = 1000; // prevent divide by zero issues
+        
+        // Sort slides by name (s1, s2, s3, etc)
+        const sortedSlides = Object.keys(s.slideDwellTimes).sort((a,b) => {
+          return parseInt(a.replace('s','')) - parseInt(b.replace('s',''));
+        });
+
+        sortedSlides.forEach(slideId => {
+          const timeMs = s.slideDwellTimes[slideId];
+          const pct = Math.min((timeMs / maxTime) * 100, 100);
+          
+          html += `
+            <div class="timeline-bar-wrapper">
+              <div class="timeline-label">${slideId.toUpperCase()}</div>
+              <div class="timeline-bar-container">
+                <div class="timeline-bar" style="width: ${pct}%"></div>
+              </div>
+              <div class="timeline-val">${formatTime(timeMs)}</div>
+            </div>
+          `;
+        });
+        html += `</div>`;
+      } else {
+        html += `<div class="meta">No specific slide duration data saved.</div>`;
+      }
+
+      card.innerHTML = html;
+      dash.appendChild(card);
+    });
+  }
+
+  loadData();
+</script>
+</body>
+</html>

@@ -1638,6 +1638,18 @@
   </div>
 </section>
 
+<!-- ─── FLOATING SHARE BUTTON ─── -->
+<button id="floatingShareBtn" aria-label="Share Deck" style="position: fixed; bottom: 2rem; right: 2rem; z-index: 1000; background: rgba(26,34,40,0.85); backdrop-filter: blur(12px); border: 1px solid rgba(176,138,110,0.4); color: var(--copper); height: 50px; padding: 0 1.5rem; border-radius: 25px; font-family: 'Jost', sans-serif; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 10px 30px rgba(0,0,0,0.3);" onmouseover="this.style.background='var(--copper)'; this.style.color='var(--deep)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.background='rgba(26,34,40,0.85)'; this.style.color='var(--copper)'; this.style.transform='translateY(0)';">
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="18" cy="5" r="3"></circle>
+    <circle cx="6" cy="12" r="3"></circle>
+    <circle cx="18" cy="19" r="3"></circle>
+    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+  </svg>
+  <span id="shareBtnText">Share Deck</span>
+</button>
+
 <script>
 (function() {
   'use strict';
@@ -1791,6 +1803,33 @@
       navigator.sendBeacon('/api/deck-analytics', blob);
     }
   });
+
+  // ── Share Button Logic ──
+  const shareBtn = document.getElementById('floatingShareBtn');
+  const shareBtnText = document.getElementById('shareBtnText');
+  
+  if (shareBtn) {
+    shareBtn.addEventListener('click', () => {
+      const url = new URL(window.location.href);
+      const params = new URLSearchParams(url.search);
+      
+      let ref = params.get('ref') || 'direct';
+      // Append shared suffix if not already there
+      if (!ref.endsWith('-shared')) {
+        params.set('ref', ref + '-shared');
+      }
+      
+      const shareUrl = `${url.origin}${url.pathname}?${params.toString()}`;
+      
+      navigator.clipboard.writeText(shareUrl).then(() => {
+        const originalText = shareBtnText.innerText;
+        shareBtnText.innerText = "Link Copied!";
+        setTimeout(() => {
+          shareBtnText.innerText = originalText;
+        }, 2000);
+      });
+    });
+  }
 
 })();
 </script>
