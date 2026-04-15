@@ -40,6 +40,22 @@ const leadSchema = new mongoose.Schema({
 
 const Lead = mongoose.model('Lead', leadSchema);
 
+// Analytics Schema
+const deckSessionSchema = new mongoose.Schema({
+    sessionId: { type: String, required: true },
+    referrer: { type: String },
+    userAgent: { type: String },
+    screenParams: { type: String },
+    visitStart: { type: Date, default: null },
+    slideDwellTimes: { type: mongoose.Schema.Types.Mixed },
+    maxScrollDepth: { type: Number, default: 0 },
+    sectionsVisited: [{ type: String }],
+    totalDuration: { type: Number, default: 0 },
+    createdAt: { type: Date, default: Date.now }
+});
+
+const DeckSession = mongoose.model('DeckSession', deckSessionSchema);
+
 // API Routes
 app.post('/api/leads', [
     // Sanitization & Validation
@@ -63,6 +79,24 @@ app.post('/api/leads', [
     } catch (error) {
         console.error('Submission Error:', error);
         res.status(500).json({ success: false, message: 'Server error. Please try again later.' });
+    }
+});
+
+app.post('/api/deck-analytics', async (req, res) => {
+    try {
+        const payload = req.body;
+        
+        // Find existing session or create new
+        await DeckSession.findOneAndUpdate(
+            { sessionId: payload.sessionId },
+            { $set: payload },
+            { upsert: true, new: true }
+        );
+        
+        res.status(200).json({ success: true });
+    } catch (error) {
+        console.error('Analytics Storage Error:', error);
+        res.status(500).json({ success: false, message: 'Server error' });
     }
 });
 
