@@ -47,6 +47,49 @@
     font-weight: 300;
     overflow-x: hidden;
     cursor: none;
+    line-height: 1.6;
+  }
+  
+  /* PRELOADER */
+  .preloader {
+    position: fixed; inset: 0;
+    background: var(--deep);
+    z-index: 10000;
+    display: flex; justify-content: center; align-items: center;
+    transition: opacity 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .preloader.fade-out { opacity: 0; pointer-events: none; }
+  .preloader svg {
+    width: 120px; height: 120px;
+    stroke: var(--gold); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; fill: none;
+    overflow: visible;
+  }
+  /* The river path */
+  .river-path {
+    stroke-dasharray: 400; stroke-dashoffset: 400;
+    animation: drawRiver 2.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  /* The mountain outline */
+  .mountain-path {
+    stroke: rgba(200,187,168,0.4); stroke-width: 1;
+    stroke-dasharray: 200; stroke-dashoffset: 200;
+    animation: drawMountain 1.5s ease-out forwards;
+  }
+  @keyframes drawMountain { to { stroke-dashoffset: 0; } }
+  @keyframes drawRiver { 
+    0% { stroke-dashoffset: 400; }
+    100% { stroke-dashoffset: 0; }
+  }
+
+  /* PROGRESS LINE */
+  .progress-container {
+    position: fixed; top: 0; right: 2vw; width: 1px; height: 100vh;
+    background: rgba(200,187,168,0.1); z-index: 99; pointer-events: none;
+  }
+  .progress-bar {
+    width: 100%; height: 0%; background: var(--gold);
+    box-shadow: 0 0 10px rgba(184,148,63,0.5);
+    transition: height 0.1s linear;
   }
 
   /* Custom cursor */
@@ -146,12 +189,25 @@
   .hero-eyebrow {
     position: relative; z-index: 2;
     font-size: 0.75rem;
+    font-weight: 500; 
     letter-spacing: 0.25em;
     text-transform: uppercase;
-    color: #D4A84B;
-    margin-bottom: 1.5rem;
+    color: var(--cream); 
+    margin-bottom: 2rem;
     opacity: 0; animation: fadeUp 1s 0.5s forwards;
-    text-shadow: 0 0 20px rgba(184,148,63,0.4);
+    background: rgba(13,13,11,0.65);
+    backdrop-filter: blur(8px);
+    padding: 0.5rem 1.2rem;
+    border-radius: 50px;
+    border: 0.5px solid rgba(226, 188, 101, 0.4);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    transition: background 0.3s, border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  }
+  .hero-eyebrow:hover {
+    background: rgba(13,13,11,0.85);
+    border-color: rgba(226, 188, 101, 0.9);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(184,148,63,0.3);
   }
   .hero-title {
     position: relative; z-index: 2;
@@ -159,6 +215,7 @@
     font-size: clamp(4rem, 9vw, 9rem);
     font-weight: 300;
     line-height: 0.9;
+    letter-spacing: -0.02em; /* Bespoke luxury touch */
     color: var(--cream);
     opacity: 0; animation: fadeUp 1s 0.8s forwards;
   }
@@ -253,7 +310,7 @@
   }
 
   /* SECTION BASE */
-  section { padding: 10vw 8vw; }
+  section { padding: 14vw 10vw; }
   .section-label {
     font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
     color: var(--gold); margin-bottom: 3rem;
@@ -287,6 +344,7 @@
     font-family: var(--serif);
     font-size: clamp(2.5rem, 5vw, 5rem);
     font-weight: 300; line-height: 1.1;
+    letter-spacing: -0.02em;
     color: var(--cream); margin-bottom: 2.5rem;
   }
   .origin-text h2 em { font-style: italic; color: var(--stone); }
@@ -353,6 +411,7 @@
     font-family: var(--serif);
     font-size: clamp(2.2rem, 4vw, 4.5rem);
     font-weight: 300; line-height: 1.15;
+    letter-spacing: -0.02em;
     color: var(--cream); margin-bottom: 2rem;
   }
   .source-content h2 em { font-style: italic; }
@@ -415,9 +474,13 @@
   }
   .benefit-card {
     background: #0A0A09; padding: 3rem 2.5rem;
-    transition: background 0.4s;
+    transition: background 0.5s, transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s ease;
   }
-  .benefit-card:hover { background: var(--forest); }
+  .benefit-card:hover { 
+    background: var(--forest);
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 25px 60px rgba(184,148,63,0.35), inset 0 0 0 1px rgba(184,148,63,0.6);
+  }
   .benefit-num {
     font-family: var(--serif); font-size: 3rem;
     font-weight: 300; color: rgba(184,148,63,0.25);
@@ -540,11 +603,12 @@
 
   /* INTERSECTION OBSERVER REVEALS */
   .reveal {
-    opacity: 0; transform: translateY(30px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
+    opacity: 0; transform: translateY(60px);
+    filter: blur(20px);
+    transition: opacity 1.5s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1.5s cubic-bezier(0.2, 0.8, 0.2, 1), filter 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
   }
   .reveal.visible {
-    opacity: 1; transform: translateY(0);
+    opacity: 1; transform: translateY(0); filter: blur(0);
   }
   .reveal-delay-1 { transition-delay: 0.15s; }
   .reveal-delay-2 { transition-delay: 0.3s; }
@@ -640,6 +704,21 @@
 </style>
 </head>
 <body>
+
+<!-- PRELOADER -->
+<div class="preloader" id="preloader">
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <!-- Mountain outline -->
+    <path class="mountain-path" d="M 10 70 L 35 30 L 50 45 L 65 20 L 90 70" />
+    <!-- River winding from mountain -->
+    <path class="river-path" d="M 50 45 Q 60 55 45 65 T 55 85 T 45 105" />
+  </svg>
+</div>
+
+<!-- PROGRESS NAVIGATOR -->
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
 
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
@@ -857,7 +936,7 @@
     }, 80);
   });
 
-  const hoverElements = document.querySelectorAll('a, button, .hamburger, .btn-primary, .btn-ghost');
+  const hoverElements = document.querySelectorAll('a, button, .hamburger, .btn-primary, .btn-ghost, .hero-eyebrow, .benefit-card');
   hoverElements.forEach(el => {
     el.addEventListener('mouseenter', () => {
       cursor.classList.add('hovered');
@@ -884,6 +963,18 @@
   }, { threshold: 0.12 });
   reveals.forEach(r => obs.observe(r));
 
+  // Preloader Logic
+  document.addEventListener("DOMContentLoaded", () => {
+    setTimeout(() => {
+      document.getElementById('preloader').classList.add('fade-out');
+      // Remove from dom entirely after fadeout to prevent blocking
+      setTimeout(() => document.getElementById('preloader').remove(), 1200);
+    }, 2800); // Wait for river to finish animating
+  });
+
+  // Progress Bar
+  const progressBar = document.getElementById('progressBar');
+  
   // Mobile Navigation toggle
   const hamburger = document.getElementById('hamburger');
   const mobileNavOverlay = document.getElementById('mobileNavOverlay');
@@ -913,6 +1004,11 @@
   function updateParallax() {
     const scrollY = window.scrollY;
     
+    // Update Progress Bar
+    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progressPercent = (scrollY / scrollHeight) * 100;
+    progressBar.style.height = `${progressPercent}%`;
+
     // Background Image Parallax (Hero & Closing)
     if(heroBg) {
       heroBg.style.backgroundPosition = `50% calc(50% + ${scrollY * 0.4}px)`;
