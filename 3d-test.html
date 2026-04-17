@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/assets/yul-logo.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YUL — Himalayan Spring Water from Bhutan | Sip the Clouds</title>
+    <meta name="description"
+        content="YUL is pristine glacial spring water sourced from Bhutan, the world's carbon-negative kingdom. Packaged in 92% renewable FSC-certified Gable-Top cartons." />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://yulwater.com/" />
+    <meta property="og:title" content="YUL — Himalayan Spring Water from Bhutan | Sip the Clouds" />
+    <meta property="og:description"
+        content="Pristine glacial spring water from the world's only carbon-negative kingdom. 92% renewable packaging." />
+    <meta property="og:image" content="https://yulwater.com/assets/og-image.jpg" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="YUL — Himalayan Spring Water from Bhutan" />
+    <meta property="twitter:description"
+        content="Pristine glacial spring water from the world's only carbon-negative kingdom." />
+
+    <meta name="theme-color" content="#0D1F1A" />
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="preloader-content">
+            <div class="preloader-logo">YUL</div>
+            <div class="preloader-bar-track">
+                <div class="preloader-bar-fill" id="preloader-fill"></div>
+            </div>
+            <div class="preloader-text" id="preloader-text">Locating spring at 27°28'N, 89°38'E...</div>
+        </div>
+    </div>
+
+    <!-- 3D Canvas -->
+    <canvas id="yul-3d-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav id="yul-nav" class="yul-nav hidden">
+        <div class="nav-left">
+            <a href="#" class="nav-logo">YUL</a>
+        </div>
+        <div class="nav-right">
+            <a href="#" class="nav-link" data-scene="1">Our Story</a>
+            <a href="#" class="nav-link" data-scene="5">The Carton</a>
+            <a href="#" class="nav-link" data-scene="7">Partners</a>
+            <a href="/contact.html" class="nav-link">Contact</a>
+            <button id="audio-toggle" class="audio-btn" aria-label="Toggle audio">
+                <svg class="audio-icon audio-on" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="1.5">
+                    <path d="M11 5L6 9H2v6h4l5 4V5z" />
+                    <path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.08" />
+                </svg>
+                <svg class="audio-icon audio-off" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="1.5" style="display:none">
+                    <path d="M11 5L6 9H2v6h4l5 4V5z" />
+                    <line x1="23" y1="9" x2="17" y2="15" />
+                    <line x1="17" y1="9" x2="23" y2="15" />
+                </svg>
+            </button>
+        </div>
+        <div class="nav-progress">
+            <div class="nav-progress-fill" id="nav-progress-fill"></div>
+        </div>
+    </nav>
+
+    <!-- Scroll Container -->
+    <div id="scroll-container">
+
+        <!-- Scene 1: Above the Clouds -->
+        <section class="scene-section" id="scene-1" data-scene="1">
+            <div class="scene-content scene-hero-content">
+                <img src="/assets/yul-logo.svg" alt="YUL" class="hero-3d-logo" />
+                <p class="hero-tagline">Sip the Clouds. Save the Earth.</p>
+                <p class="hero-sub">Pristine Himalayan spring water. Packaged in the world's only carbon-negative
+                    country.</p>
+                <div class="scroll-cue" id="scroll-cue">
+                    <span>Begin the Journey</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 5v14M5 12l7 7 7-7" />
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scene 2: Bhutanese Mountains -->
+        <section class="scene-section" id="scene-2" data-scene="2">
+            <div class="scene-content scene-panel-left" id="panel-bhutan">
+                <h2 class="scene-heading">The Kingdom of Bhutan</h2>
+                <p class="scene-coords">Gomtu · 27°28'N, 89°38'E</p>
+                <p class="scene-body">The only carbon-negative country on Earth.</p>
+            </div>
+            <div class="scene-content scene-panel-right" id="panel-gathered">
+                <p class="scene-quote">"YUL is not manufactured.<br />It is gathered."</p>
+            </div>
+        </section>
+
+        <!-- Scene 3: Glacial Spring -->
+        <section class="scene-section" id="scene-3" data-scene="3">
+            <div class="scene-content scene-center-title" id="panel-alkaline">
+                <h2 class="scene-heading-lg">Alkaline by Nature.</h2>
+                <p class="scene-data">TDS 250 mg/L</p>
+                <p class="scene-body">Filtered through Himalayan mineral rock.<br />Crisp. Velvety. Untouched.</p>
+            </div>
+        </section>
+
+        <!-- Scene 4: Underwater -->
+        <section class="scene-section" id="scene-4" data-scene="4">
+            <div class="scene-content scene-center-title" id="panel-pure">
+                <h2 class="scene-heading-ghost">Pure.</h2>
+                <p class="scene-data-mono">pH 7.8 · TDS 250 mg/L · Source Elevation: 2,800m</p>
+            </div>
+        </section>
+
+        <!-- Scene 5: Carton Reveal -->
+        <section class="scene-section scene-section-tall" id="scene-5" data-scene="5">
+            <div class="scene-content scene-panel-left" id="panel-carton">
+                <h2 class="scene-heading">Designed for the Future.<br />Destined for You.</h2>
+                <p class="scene-body">Glass is heavy. Plastic is forever.<br />YUL is the answer.</p>
+                <p class="scene-body">92% renewable materials.<br />Paper-based Gable-Top carton.<br />FSC Certified.
+                </p>
+            </div>
+            <!-- Hotspot annotations (positioned via JS) -->
+            <div class="hotspot-container" id="hotspots">
+                <div class="hotspot" data-label="92% Renewable Materials" id="hs-1">
+                    <span class="hotspot-dot"></span>
+                    <span class="hotspot-label">92% Renewable Materials</span>
+                </div>
+                <div class="hotspot" data-label="FSC Certified Paperboard" id="hs-2">
+                    <span class="hotspot-dot"></span>
+                    <span class="hotspot-label">FSC Certified Paperboard</span>
+                </div>
+                <div class="hotspot" data-label="Plant-Based Cap" id="hs-3">
+                    <span class="hotspot-dot"></span>
+                    <span class="hotspot-label">Plant-Based Cap</span>
+                </div>
+                <div class="hotspot" data-label="Sourced in Bhutan" id="hs-4">
+                    <span class="hotspot-dot"></span>
+                    <span class="hotspot-label">Sourced in Bhutan · 27°28'N</span>
+                </div>
+                <div class="hotspot" data-label="Carbon Negative" id="hs-5">
+                    <span class="hotspot-dot"></span>
+                    <span class="hotspot-label">Carbon Negative Production</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scene 6: Sustainability -->
+        <section class="scene-section" id="scene-6" data-scene="6">
+            <div class="scene-content scene-center-title" id="panel-sustainability">
+                <h2 class="scene-heading-lg">Beyond Carbon Neutral.</h2>
+                <p class="scene-body">Most brands strive to be neutral.<br />YUL started negative.</p>
+            </div>
+            <div class="scene-content scene-stats" id="panel-stats">
+                <div class="stat-item"><span class="stat-number" data-value="74">0</span><span
+                        class="stat-unit">%</span>
+                    <span class="stat-label">of Bhutan is forest cover</span>
+                </div>
+                <div class="stat-item"><span class="stat-number" data-value="92">0</span><span
+                        class="stat-unit">%</span>
+                    <span class="stat-label">paper, 8% polymer</span>
+                </div>
+                <div class="stat-item"><span class="stat-number" data-value="1988">0</span><span
+                        class="stat-unit"></span>
+                    <span class="stat-label">Carbon Negative since</span>
+                </div>
+                <div class="stat-item"><span class="stat-number" data-value="-1.2">0</span><span class="stat-unit">kg
+                        CO₂</span>
+                    <span class="stat-label">per carton produced</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scene 7: Partners -->
+        <section class="scene-section" id="scene-7" data-scene="7">
+            <div class="scene-content scene-partner-panel" id="panel-partners">
+                <h2 class="scene-heading">Bring the Himalayas<br />to Your Market.</h2>
+                <p class="scene-body">We are opening exclusive export channels for:</p>
+                <ul class="partner-list">
+                    <li>Luxury Hotels &amp; Resorts</li>
+                    <li>Premium Retailers</li>
+                    <li>Corporate Offices</li>
+                    <li>Airlines &amp; Private Aviation</li>
+                    <li>Health &amp; Wellness Brands</li>
+                </ul>
+                <a href="/contact.html" class="cta-btn ripple-btn">Become a YUL Partner →</a>
+            </div>
+        </section>
+
+        <!-- Scene 8: Footer / Outro -->
+        <section class="scene-section" id="scene-8" data-scene="8">
+            <div class="scene-content scene-footer-content" id="panel-footer">
+                <div class="footer-logo-large">YUL</div>
+                <p class="footer-tagline-3d">Sip the Clouds. Save the Earth.</p>
+                <p class="footer-origin">"Made in the Land of the Thunder Dragon."</p>
+                <div class="footer-links-3d">
+                    <a href="#">Our Story</a>
+                    <a href="#">Sustainability</a>
+                    <a href="/contact.html">Partners</a>
+                    <a href="/contact.html">Contact</a>
+                    <a href="/carbon-report.html">Carbon Report</a>
+                </div>
+                <p class="footer-copyright">© 2026 YUL Beverages. Bhutan.</p>
+                <p class="footer-coords">Coordinates: 27°28'N, 89°38'E</p>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Custom Cursor -->
+    <div id="custom-cursor" class="custom-cursor"></div>
+
+    <script type="module" src="/3d-experience.js"></script>
+</body>
+
+</html>
