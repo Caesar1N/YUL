@@ -46,8 +46,12 @@
     font-family: var(--sans);
     font-weight: 300;
     overflow-x: hidden;
-    cursor: none;
     line-height: 1.6;
+  }
+
+  /* Custom cursor only on devices with fine pointer (mouse) */
+  @media (pointer: fine) {
+    body { cursor: none; }
   }
   
   /* PRELOADER */
@@ -120,7 +124,7 @@
 
   /* NAV */
   nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
     padding: 1.4rem 4rem;
     display: flex; justify-content: space-between; align-items: center;
     background: rgba(13,13,11,0.94);
@@ -162,6 +166,12 @@
     transition: background 0.3s, border-color 0.3s;
   }
   .nav-cta:hover { background: rgba(184,148,63,0.15); border-color: var(--gold); }
+  .sound-toggle {
+    font-size: 0.65rem; letter-spacing: 0.15em; color: rgba(200,187,168,0.7);
+    background: none; border: none; font-family: var(--sans); cursor: none;
+    transition: color 0.3s; padding: 0.5rem; text-transform: uppercase;
+  }
+  .sound-toggle:hover, .sound-toggle.active { color: var(--gold); }
 
   /* HERO */
   .hero {
@@ -295,7 +305,8 @@
   }
   .marquee-inner {
     display: inline-flex; gap: 0;
-    animation: marquee 20s linear infinite;
+    will-change: transform;
+    /* JS driven velocity marquee */
   }
   .marquee-item {
     font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase;
@@ -303,10 +314,6 @@
   }
   .marquee-dot {
     color: rgba(13,13,11,0.4);
-  }
-  @keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
   }
 
   /* SECTION BASE */
@@ -661,11 +668,18 @@
   .hamburger.active span:nth-child(2) { opacity: 0; }
   .hamburger.active span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
+  /* Hide custom cursor on touch/mobile devices */
+  @media (pointer: coarse) {
+    .cursor, .cursor-ring { display: none !important; }
+  }
+
   @media (max-width: 900px) {
     nav { padding: 1.2rem 1.5rem; }
     nav.scrolled { padding: 1rem 1.5rem; }
     .nav-links { display: none; }
     .hamburger { display: flex; }
+    .sound-toggle { font-size: 0.55rem; letter-spacing: 0.1em; padding: 0.4rem; }
+    .nav-cta { display: none; }
     
     section { padding: 14vw 6vw; }
     .origin, .source-section, .facility { grid-template-columns: 1fr; }
@@ -674,23 +688,34 @@
     .facility-img { min-height: 300px; order: -1; }
     .facility-content { padding: 10vw 6vw; }
     .source-img img { min-height: 350px; }
+    .source-content { padding: 10vw 6vw; }
     .benefits-grid { grid-template-columns: 1fr 1fr; }
     .stats { grid-template-columns: 1fr; }
     .stat-item { border-right: none; border-bottom: 0.5px solid rgba(200,187,168,0.15); padding: 3rem 6vw; }
+    .hero { padding: 0 6vw 8vh; }
     .hero-title { font-size: clamp(3.5rem, 13vw, 5rem); line-height: 0.95; }
     .hero-sub { font-size: 0.75rem; max-width: 90%; }
     .shift-list { gap: 1.5rem; font-size: 0.95rem; }
-    .fullbleed { height: 75vw; min-height: 340px; }
+    .fullbleed { height: 75vw; min-height: 340px; padding: 0 6vw; }
     .fullbleed-text blockquote { font-size: clamp(1.8rem, 5vw, 3rem); }
     .closing-section h2 { font-size: clamp(2.8rem, 10vw, 5rem); }
+    .closing-section { padding: 16vw 6vw; }
     footer { flex-direction: column; align-items: flex-start; padding: 4rem 6vw; }
     .footer-links { flex-wrap: wrap; gap: 1.5rem; }
     .hero-coords { display: none; }
+    .progress-container { display: none; }
+    .marquee-strip { padding: 0.7rem 0; }
+    .marquee-item { font-size: 0.5rem; padding: 0 2rem; }
   }
   @media (max-width: 560px) {
     .benefits-grid { grid-template-columns: 1fr; }
+    .benefit-card { padding: 2.5rem 2rem; }
     .origin-text h2 { font-size: clamp(2.2rem, 9vw, 3rem); }
+    .origin-text p { font-size: 0.95rem; }
     .source-content h2 { font-size: clamp(2rem, 8vw, 3rem); text-align: left; }
+    .source-content p { font-size: 0.95rem; }
+    .facility-content h2 { font-size: clamp(1.8rem, 7vw, 2.5rem); }
+    .facility-content p { font-size: 0.95rem; }
     .shift-list { flex-direction: column; gap: 1.2rem; align-items: flex-start; width: 100%; text-align: left;}
     .closing-actions { flex-direction: column; align-items: stretch; width: 100%; gap: 1rem; }
     .closing-actions .btn-primary { text-align: center; }
@@ -698,8 +723,9 @@
     .hero-actions { flex-direction: column; align-items: stretch; gap: 1rem; width: 100%; }
     .hero-actions .btn-primary { text-align: center; }
     .hero-actions .btn-ghost { justify-content: center; }
-    .hero-bg { background-position: 65% center; /* Adjust focus on mobile */ }
+    .hero-bg { background-position: 65% center; }
     .stat-num { font-size: 2.8rem; }
+    .sound-toggle { font-size: 0.5rem; letter-spacing: 0.08em; }
   }
 </style>
 </head>
@@ -732,9 +758,12 @@
     <li><a href="#promise">Our Promise</a></li>
     <li><a href="#story">Story</a></li>
   </ul>
-  <!-- Hamburger menu -->
-  <div class="hamburger" id="hamburger">
-    <span></span><span></span><span></span>
+  <div style="display:flex; align-items:center;">
+    <button id="soundBtn" class="sound-toggle">[ Sound : Off ]</button>
+    <!-- Hamburger menu -->
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
   </div>
 </nav>
 
@@ -923,6 +952,9 @@
   <p class="footer-copy">© 2025 YUL — Your Ultimate Life. Sourced from Bhutan, Himalaya. &nbsp;·&nbsp; 26.818345° N, 89.205152° E</p>
 </footer>
 
+<!-- Lenis Smooth Scroll -->
+<script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+
 <script>
   // Cursor
   const cursor = document.getElementById('cursor');
@@ -936,7 +968,7 @@
     }, 80);
   });
 
-  const hoverElements = document.querySelectorAll('a, button, .hamburger, .btn-primary, .btn-ghost, .hero-eyebrow, .benefit-card');
+  const hoverElements = document.querySelectorAll('a, button, .hamburger, .btn-primary, .btn-ghost, .hero-eyebrow, .benefit-card, .sound-toggle');
   hoverElements.forEach(el => {
     el.addEventListener('mouseenter', () => {
       cursor.classList.add('hovered');
@@ -962,6 +994,10 @@
     });
   }, { threshold: 0.12 });
   reveals.forEach(r => obs.observe(r));
+
+  // Force scroll to top on every page load/refresh
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  window.scrollTo(0, 0);
 
   // Preloader Logic
   document.addEventListener("DOMContentLoaded", () => {
@@ -996,7 +1032,34 @@
     });
   });
 
-  // Subtle Parallax Scroll
+  // Close mobile nav when tapping the overlay background
+  mobileNavOverlay.addEventListener('click', (e) => {
+    if (e.target === mobileNavOverlay) {
+      toggleMenu();
+    }
+  });
+
+  // Lenis Implementation — tuned for buttery smooth feel on all devices
+  const isMobile = window.matchMedia('(max-width: 900px)').matches;
+  const lenis = new Lenis({
+    duration: isMobile ? 1.0 : 1.4,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    direction: 'vertical',
+    gestureDirection: 'vertical',
+    smooth: true,
+    mouseMultiplier: 1,
+    smoothTouch: false,
+    touchMultiplier: 2,
+    wheelMultiplier: 1,
+  })
+
+  function raf(time) {
+    lenis.raf(time)
+    requestAnimationFrame(raf)
+  }
+  requestAnimationFrame(raf)
+
+  // Subtle Parallax Scroll integrated with Lenis hook
   const parallaxImages = document.querySelectorAll('.origin-img-wrap img, .source-img img, .fullbleed img, .facility-img img');
   const heroBg = document.querySelector('.hero-bg');
   const closingBg = document.querySelector('.closing-bg');
@@ -1034,9 +1097,86 @@
     });
   }
 
-  window.addEventListener('scroll', updateParallax, { passive: true });
-  // Trigger once heavily on load to set initial state without shifting!
+  // Hook parallax into Lenis scroll instead of window to prevent jerky mousewheel events
+  lenis.on('scroll', updateParallax)
+  // Trigger once heavily on load
   updateParallax();
+
+  // Velocity Scrolling Marquee
+  const marqueeInner = document.querySelector('.marquee-inner');
+  // clone items to ensure we have enough width to scroll seamlessly
+  const marqueeContent = marqueeInner.innerHTML;
+  marqueeInner.innerHTML += marqueeContent; // double it
+
+  let _marqueeX = 0;
+  let _scrollVelocity = 0;
+  let _targetVelocity = 0;
+  lenis.on('scroll', (e) => {
+    _targetVelocity = e.velocity;
+  });
+
+  function updateMarquee() {
+    // Decay velocity smoothly back to zero (exponential ease-out)
+    _scrollVelocity += (_targetVelocity - _scrollVelocity) * 0.08;
+    _targetVelocity *= 0.96; // ensure target itself decays
+
+    // Gentle base speed (pixels per frame) + velocity boost
+    const baseSpeed = 0.3;
+    const velocityBoost = Math.abs(_scrollVelocity) * 0.3;
+    const speed = baseSpeed + velocityBoost;
+    _marqueeX -= speed;
+
+    // Seamless loop: reset when we've scrolled past half the content
+    const halfWidth = marqueeInner.scrollWidth / 2;
+    if (Math.abs(_marqueeX) >= halfWidth) {
+      _marqueeX += halfWidth;
+    }
+    marqueeInner.style.transform = `translate3d(${_marqueeX}px, 0, 0)`;
+    requestAnimationFrame(updateMarquee);
+  }
+  requestAnimationFrame(updateMarquee);
+
+  // Audio Logic — Soothing River Stream (Pixabay CC0)
+  const soundBtn = document.getElementById('soundBtn');
+  const ambientAudio = new Audio('/assets/ambient-stream.mp3');
+  ambientAudio.loop = true;
+  ambientAudio.volume = 0;
+  let isPlaying = false;
+  let fadeInterval;
+
+  soundBtn.addEventListener('click', () => {
+    if (isPlaying) {
+      // Fade out
+      clearInterval(fadeInterval);
+      fadeInterval = setInterval(() => {
+        if (ambientAudio.volume > 0.03) {
+          ambientAudio.volume = Math.max(0, ambientAudio.volume - 0.03);
+        } else {
+          ambientAudio.pause();
+          ambientAudio.volume = 0;
+          clearInterval(fadeInterval);
+        }
+      }, 50);
+      soundBtn.textContent = "[ Sound : Off ]";
+      soundBtn.classList.remove('active');
+      isPlaying = false;
+    } else {
+      // Fade in to ~40% volume (subtle)
+      ambientAudio.play().catch(e => console.warn('Audio blocked by browser:', e));
+      clearInterval(fadeInterval);
+      fadeInterval = setInterval(() => {
+        if (ambientAudio.volume < 0.37) {
+          ambientAudio.volume = Math.min(1, ambientAudio.volume + 0.03);
+        } else {
+          ambientAudio.volume = 0.4;
+          clearInterval(fadeInterval);
+        }
+      }, 80);
+      soundBtn.textContent = "[ Sound : On ]";
+      soundBtn.classList.add('active');
+      isPlaying = true;
+    }
+  });
 </script>
 </body>
 </html>
