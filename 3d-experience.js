@@ -1,5 +1,5 @@
 /* ====================================================================
-   YUL 3D — Main Experience Orchestrator
+   YUL 3D Main Experience Orchestrator
    Camera path, scroll sync, scene transitions, UI controls
    ==================================================================== */
 import './3d-experience.css';
@@ -179,7 +179,7 @@ function setupScroll() {
 }
 
 function setupSceneReveals() {
-    // Scene 1 hero — hide scroll cue after scrolling
+    // Scene 1 hero hide scroll cue after scrolling
     ScrollTrigger.create({
         trigger: '#scene-1',
         start: 'top top',
@@ -290,7 +290,7 @@ function setupUI() {
             document.getElementById('custom-cursor')?.classList.remove('hover'));
     });
 
-    // Nav links — scroll to scene
+    // Nav links scroll to scene
     document.querySelectorAll('.nav-link[data-scene]').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
@@ -397,7 +397,7 @@ function updateScene(time) {
         hideHotspots();
     }
 
-    // Growing forest (Scene 6) — dual mesh system
+    // Growing forest (Scene 6) dual mesh system
     if (forest) {
         if (scrollProgress > 0.72 && scrollProgress < 0.85) {
             forest.trunkMesh.visible = true;

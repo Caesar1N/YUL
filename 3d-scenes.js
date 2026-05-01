@@ -1,5 +1,5 @@
 /* ====================================================================
-   YUL 3D — Scene Builders (Hyper-Realistic PBR Rendering)
+   YUL 3D Scene Builders (Hyper-Realistic PBR Rendering)
    ==================================================================== */
 import * as THREE from 'three';
 import { SimplexNoise } from './3d-utils.js';
@@ -488,7 +488,7 @@ export function createWaterSurface(scene) {
         vec3 viewDir = normalize(uCamPos - vWorldPos);
         float fresnel = pow(1.0 - max(dot(viewDir, vNormal), 0.0), 4.0);
 
-        // Caustics — animated interference patterns
+        // Caustics animated interference patterns
         float c1 = sin(vUv.x * 30.0 + uTime * 0.6) * sin(vUv.y * 30.0 + uTime * 0.4);
         float c2 = sin(vUv.x * 20.0 - uTime * 0.3 + vUv.y * 15.0) * sin(vUv.y * 25.0 + uTime * 0.5);
         float caustic = pow(abs(c1 + c2) * 0.5, 0.6) * 0.15;
@@ -500,7 +500,7 @@ export function createWaterSurface(scene) {
         // Add caustics
         waterCol += caustic * vec3(0.6, 0.9, 1.0);
 
-        // Fresnel reflection — bright sky reflection at edges
+        // Fresnel reflection bright sky reflection at edges
         vec3 reflColor = mix(vec3(0.7, 0.82, 0.88), vec3(0.95, 0.97, 1.0), fresnel);
         waterCol = mix(waterCol, reflColor, fresnel * 0.6);
 
@@ -616,7 +616,7 @@ export function createCarton(scene) {
     roughness: 0.72, metalness: 0.0, envMapIntensity: 0.4,
   });
 
-  // Side faces — plain paper material
+  // Side faces plain paper material
   const paperMat = new THREE.MeshStandardMaterial({
     color: 0xE8E2D8, normalMap: paperNormal, normalScale: new THREE.Vector2(0.4, 0.4),
     roughness: 0.75, metalness: 0.0, envMapIntensity: 0.3,
@@ -764,7 +764,7 @@ export function createGrowingForest(scene) {
 
 // ── Hyper-Realistic Lighting ────────────────────────────────────
 export function createLighting(scene) {
-  // Main sun — warm golden hour
+  // Main sun warm golden hour
   const sun = new THREE.DirectionalLight(0xFFD580, 1.2);
   sun.position.set(60, 50, -40);
   sun.castShadow = true;
@@ -778,17 +778,17 @@ export function createLighting(scene) {
   sun.shadow.normalBias = 0.02;
   scene.add(sun);
 
-  // Fill light — cool blue from opposite side
+  // Fill light cool blue from opposite side
   const fillLight = new THREE.DirectionalLight(0x4488AA, 0.3);
   fillLight.position.set(-40, 30, 30);
   scene.add(fillLight);
 
-  // Rim light — subtle back lighting for depth
+  // Rim light subtle back lighting for depth
   const rimLight = new THREE.DirectionalLight(0xFFEECC, 0.2);
   rimLight.position.set(-10, 20, 60);
   scene.add(rimLight);
 
-  // Ambient — very subtle
+  // Ambient very subtle
   const ambient = new THREE.AmbientLight(0x1A2A3A, 0.25);
   scene.add(ambient);
 

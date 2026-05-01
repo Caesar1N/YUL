@@ -1,5 +1,5 @@
 /* ====================================================================
-   YUL 3D — Utility Functions (Noise, Helpers)
+   YUL 3D Utility Functions (Noise, Helpers)
    ==================================================================== */
 
 // Simplex noise implementation for terrain generation
