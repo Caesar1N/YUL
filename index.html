@@ -516,7 +516,7 @@
 
     /* SECTION BASE */
     section {
-      padding: 14vw 10vw;
+      padding: clamp(4rem, 8vw, 8rem) 8vw;
     }
 
     .section-label {
@@ -678,7 +678,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 8vw 6vw;
+      padding: clamp(4rem, 6vw, 6rem) 6vw;
     }
 
     .source-content h2 {
@@ -778,6 +778,7 @@
     /* BENEFITS */
     .benefits {
       background: #0A0A09;
+      padding-bottom: clamp(2rem, 4vw, 4rem);
     }
 
     .benefits-grid {
@@ -830,10 +831,11 @@
       grid-template-columns: 1fr 1fr;
       gap: 0;
       background: var(--forest);
+      padding: 0;
     }
 
     .facility-content {
-      padding: 8vw;
+      padding: clamp(4rem, 6vw, 6rem) 6vw;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -1428,9 +1430,9 @@
     <a href="#" class="nav-logo">YUL</a>
     <ul class="nav-links">
       <li><a href="#origin">The Source</a></li>
-      <li><a href="#nourishment">Nourishment</a></li>
+      <li><a href="#nourishment">Philosophy</a></li>
       <li><a href="#promise">Our Promise</a></li>
-      <li><a href="#story">Story</a></li>
+      <li><a href="#story">Nourishment</a></li>
     </ul>
     <div style="display:flex; align-items:center;">
       <button id="soundBtn" class="sound-toggle">[ Sound : Off ]</button>
@@ -1445,9 +1447,9 @@
   <div class="mobile-nav-overlay" id="mobileNavOverlay">
     <ul class="mobile-nav-links">
       <li><a href="#origin" class="mob-link">The Source</a></li>
-      <li><a href="#nourishment" class="mob-link">Nourishment</a></li>
+      <li><a href="#nourishment" class="mob-link">Philosophy</a></li>
       <li><a href="#promise" class="mob-link">Our Promise</a></li>
-      <li><a href="#story" class="mob-link">Story</a></li>
+      <li><a href="#story" class="mob-link">Nourishment</a></li>
     </ul>
   </div>
 
@@ -1458,7 +1460,7 @@
     <h1 class="hero-title">Your<br><em>Ultimate</em><br>Life.</h1>
     <p class="hero-sub">Nourishing Hydration from the Living Himalayas</p>
     <div class="hero-actions">
-      <a href="#shop" class="btn-primary">Begin Your Ritual</a>
+      <a href="contact.html" class="btn-primary">Begin Your Ritual</a>
       <a href="#origin" class="btn-ghost">Discover the Source <span>↓</span></a>
     </div>
     <div class="hero-coords">26.818345° N &nbsp; 89.205152° E</div>
@@ -1619,7 +1621,7 @@
     </div>
     <p>This is not just water. It is a small decision repeated daily that shapes how you feel, live, and age.</p>
     <div class="closing-actions">
-      <a href="#shop" class="btn-primary">Start Your Daily Ritual</a>
+      <a href="contact.html" class="btn-primary">Start Your Daily Ritual</a>
       <a href="#origin" class="btn-ghost" style="color: var(--cream);">Learn the Story <span>↗</span></a>
     </div>
   </section>
@@ -1631,9 +1633,9 @@
       <div class="footer-tagline">Your Ultimate Life</div>
     </div>
     <ul class="footer-links">
-      <li><a href="#">The Source</a></li>
-      <li><a href="#">Our Water</a></li>
-      <li><a href="#">Sustainability</a></li>
+      <li><a href="#origin">The Source</a></li>
+      <li><a href="#story">Nourishment</a></li>
+      <li><a href="#promise">Sustainability</a></li>
       <!-- <li><a href="#">Shop</a></li> -->
       <li><a href="contact.html">Contact</a></li>
     </ul>
